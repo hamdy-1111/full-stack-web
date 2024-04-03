@@ -34,5 +34,5 @@ endif()
 include_directories(server/external/include)
 
 target_sources(${EXE_NAME} PRIVATE server/main.cpp
-    server/resources/root.cpp)
+    server/resources/root/root.cpp)
 target_include_directories(${EXE_NAME} PRIVATE server/resources)

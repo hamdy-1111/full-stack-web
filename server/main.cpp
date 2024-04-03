@@ -3,17 +3,15 @@
 // standard libraries
 #include <iostream>
 // my code
-#include "root.hpp"
-
+#include "root/root.hpp"
 using namespace httpserver;
 int main(int argc, char const *argv[])
 {
     webserver ws = create_webserver(80);
-
     root_resource root_rc;
     ws.register_resource("/", &root_rc, true);
 
-    std::cout << "Starting server" << std::endl;
+    std::cout << "SERVER RUNNING." << std::endl;
     ws.start(true);
     return 0;
 }
