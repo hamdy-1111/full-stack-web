@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>casper</title>
+    <link rel="icon" type="image/x-icon" href="images/">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/service.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+    <div class="container">
+            <a href="index.html" class="logo soundButton fileLink" data-sound="clickSoundGroup3"><i class="fa-brands fa-optin-monster fa-2xl fa-spin"></i></a>
+        <nav>
+            <i class="fas fa-bars " id="toggle-menu"></i>
+            <ul id="myList" class="">
+            <li><a href="index.html" class="soundButton fileLink" data-sound="clickSoundGroup3">main page</a></li>
+            <li><a href="index.html#portfolio" class="soundButton fileLink" data-sound="clickSoundGroup3">portfolio</a></li>
+            <li><a href="community.html" class="soundButton fileLink" data-sound="clickSoundGroup3">community</a></li>
+            <li><a href="#pricing">pricing</a></li>
+            <li><a href="#about">about</a></li>
+            <li><a href="#contact">contact</a></li>
+            </ul>
+    <div class="form">
+        <i class="fa-brands fa-searchengin"></i>
+    </div>
+        </nav>
+</div>
+</header>
+<button id="scrollTopBtn" onclick="scrollToTop()"><i class="fa-solid fa-jet-fighter-up"></i></button>
+<!-- START SERVICES -->
+<div class="services" id="servicesSection">
+    <div class="container">
+        <div class="main-heading">
+            <h2>Services</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur nemo qui debitis, commodi adipisci iste, quae enim eligendi et eiu</p>
+        </div>
+    </div>
+    <div class="services-container">
+        <div class="srv-box">
+            <i class="fa-brands fa-windows"></i>
+            <div class="text">
+                <h3>Widows</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi deserunt temporib
+                    us, a ab recusandae aperiam atque voluptatum aliquam tenetur libero ad aspernat
+                    ur! Animi maxime, magni et dolorem numquam recusandae neque.</p>
+            </div>
+        </div>
+        <div class="srv-box">
+            <i class="fa-brands fa-playstation"></i>
+            <div class="text">
+                <h3>Widows</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi deserunt temporib
+                    us, a ab recusandae aperiam atque voluptatum aliquam tenetur libero ad aspernat
+                    ur! Animi maxime, magni et dolorem numquam recusandae neque.</p>
+            </div>
+        </div>
+        <div class="srv-box">
+            <i class="fa-brands fa-twitch"></i>
+            <div class="text">
+                <h3>Widows</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi deserunt temporib
+                    us, a ab recusandae aperiam atque voluptatum aliquam tenetur libero ad aspernat
+                    ur! Animi maxime, magni et dolorem numquam recusandae neque.</p>
+            </div>
+        </div>
+        <div class="srv-box">
+            <i class="fa-brands fa-discord"></i>
+            <div class="text">
+                <h3>Widows</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi deserunt temporib
+                    us, a ab recusandae aperiam atque voluptatum aliquam tenetur libero ad aspernat
+                    ur! Animi maxime, magni et dolorem numquam recusandae neque.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END SERVICES -->
+
+
+
+
+
+
+<footer>
+        <p>&copy; 2024 my Project. All rights reserved.</p>
+        <div class="social-icons">
+            <!-- Add your social media links and icons here -->
+            <a href="https://www.facebook.com/noopsaibot" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+</footer>
+<!-- sounds -->
+<audio id="clickSoundGroup1" src="sounds/mixkit-cool-interface-click-tone-2568.wav"></audio>
+<audio id="clickSoundGroup2" src="sounds/mixkit-negative-tone-interface-tap-2569.wav"></audio>
+<audio id="clickSoundGroup3" src="sounds/mixkit-modern-technology-select-3124.wav"></audio>
+<!-- sounds -->
+<!--START sound effects -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements with the class 'soundButton' and set up event listeners
+    var buttons = document.querySelectorAll('.soundButton');
+    buttons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            var soundId = this.getAttribute('data-sound');
+
+            // Check if the element has the 'fileLink' class
+            var isFileLink = button.classList.contains('fileLink');
+
+            // Play sound if soundId is defined
+            if (soundId) {
+                if (isFileLink) {
+                    event.preventDefault(); // Prevent the default behavior of the link for file links
+                    playSound(soundId);
+
+                    // Continue with the default behavior after a delay (e.g., 500 milliseconds)
+                    setTimeout(function () {
+                        window.location.href = button.getAttribute('href');
+                    }, 500);
+                } else {
+                    playSound(soundId); // Play sound without preventing the default behavior for regular links
+                }
+            }
+            // Your other functionality here
+        });
+    });
+    function playSound(soundId) {
+        var audio = document.getElementById(soundId);
+        if (audio) {
+            audio.play();
+        }
+    }
+});
+
+</script>
+<!--END sound effects -->
+
+<!-- start head list -->
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggleButton = document.getElementById('toggle-menu');
+            var myList = document.getElementById('myList');
+
+            // Toggle the "active" class to control visibility when the button is clicked
+            toggleButton.addEventListener('click', function () {
+                myList.classList.toggle('active');
+            });
+
+            // Close the list when clicking anywhere outside of it
+            document.addEventListener('click', function (event) {
+                var isClickInside = myList.contains(event.target) || toggleButton.contains(event.target);
+
+                if (!isClickInside) {
+                    myList.classList.remove('active');
+                }
+            });
+        });
+</script>
+<!-- end head list -->
+
+
+<!--  start  servicesSection_amnimation   -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var servicesSection = document.getElementById('servicesSection');
+
+    var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+            servicesSection.classList.add('animate');
+            observer.disconnect(); // Stop observing once animation is triggered
+        }
+    });
+
+    observer.observe(servicesSection);
+});
+
+</script>
+<!--  end  servicesSection_amnimation   -->
+
+
+<!-- start scrollTopBtn  -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    // Show or hide the button based on the scroll position
+    window.onscroll = function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            scrollTopBtn.style.display = 'block';
+        } else {
+            scrollTopBtn.style.display = 'none';
+        }
+    };
+});
+
+// Function to scroll to the top of the page
+function scrollToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+}
+</script>
+<!-- end scrollTopBtn  -->
+
+</body>
+</html>
