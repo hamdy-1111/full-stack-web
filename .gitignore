@@ -1,3 +1,7 @@
-.vscode
+.vscode/
 cmakefiles/
+cmakefiles-mingw/
 server.exe
+
+# don't send linux version to git
+server-linux
