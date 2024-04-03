@@ -11,7 +11,7 @@ http_response *root_resource::get_requested_content(const http_request &req) {
         if( std::filesystem::exists(frontend_file) ) {
             return new file_response( frontend_file, http::http_utils::http_ok, get_file_contenttype(frontend_file));
         } else {
-            return new string_response( "404 Not Found.", httpserver::http::http_utils::http_ok, "text/html" );
+            return new string_response( "404 Not Found.", httpserver::http::http_utils::http_not_found, "text/html" );
         }
 }
 
