@@ -25,13 +25,13 @@ if( NOT OS_NAME STREQUAL "Windows")
 else()
     message("STATIC BUILD FOR WINDOWS")
     target_link_libraries(${EXE_NAME} PUBLIC -static)
-    target_link_libraries(${EXE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/server/external/windows/libhttpserver.a 
-                                                ${CMAKE_CURRENT_SOURCE_DIR}/server/external/windows/libmicrohttpd.a 
-                                                ${CMAKE_CURRENT_SOURCE_DIR}/server/external/windows/libws2_32.a)
+    target_link_libraries(${EXE_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/server/external/libhttpserver/windows/libhttpserver.a 
+                                                ${CMAKE_CURRENT_SOURCE_DIR}/server/external/libhttpserver/windows/libmicrohttpd.a 
+                                                ${CMAKE_CURRENT_SOURCE_DIR}/server/external/libhttpserver/windows/libws2_32.a)
 endif()
 
 
-include_directories(server/external/include)
+include_directories(server/external/httpserver/include)
 
 target_sources(${EXE_NAME} PRIVATE server/main.cpp
     server/resources/root/root.cpp)
