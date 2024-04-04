@@ -1,11 +1,20 @@
 #!/bin/python3
 import sys
 import subprocess as sp
+
+# Check if build is for frontend
+if len(sys.argv) == 2 and sys.argv[1] == "frontend":
+    print("BUIDLING FRONTEND API")
+    sp.run(["tsc"]) # Command for building
+    print("BUILDING FRONTEND DONE")
+    exit(0)
+
 OS = ""
 MODE = ""
 
 def exitWithMessage():
     print("./build.py <OS_NAME> (windows or linux) <MODE> (release or debug)")
+    print("or\n./build.py frontend (for compiling ts files to js file)")
     exit(1)
 
 if len(sys.argv) <= 1 or sys.argv[1] not in ["windows", "linux"]:
