@@ -18,7 +18,14 @@ body{
 font-family: 'Poppins', sans-serif;
 font-family: 'Work Sans', sans-serif;
 }
-
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
 /* Small )*/
 @media
 (min-width: 576px) {
@@ -95,6 +102,10 @@ header nav {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 @media(min-width: 768px) {
     header nav #toggle-menu{
@@ -475,6 +486,10 @@ padding: 15px 0 ;
     margin-bottom: 40px;
     margin-top: 20px;
     transition: .8s ease-out;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .design-button:hover{
     background-color: var(--main-color);
@@ -500,6 +515,10 @@ padding: 15px 0 ;
 }
 .portfolio .shuffel li{
     padding: 10px;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .portfolio .shuffel li.active-3{
     background-color: var(--main-color);

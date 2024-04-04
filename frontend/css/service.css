@@ -1,6 +1,14 @@
 body{
     background-color: black;
 }
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
 #scrollTopBtn {
     display: none;
     position: fixed;

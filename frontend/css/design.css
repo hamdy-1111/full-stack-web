@@ -4,6 +4,14 @@
     --text-color:#777;
     --section-padding: 100px;
 }
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
 #scrollTopBtn {
     display: none;
     position: fixed;
@@ -130,6 +138,10 @@ header nav {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 @media(min-width: 768px) {
     header nav #toggle-menu{
@@ -319,9 +331,11 @@ header nav .form i {
 }
 .landing .fa-angle-left{
     left: 30px;
+    cursor: pointer;
 }
 .landing .fa-angle-right{
     right: 30px;
+    cursor: pointer;
 }
 .landing .bullets {
     position: absolute;
@@ -371,6 +385,10 @@ border-color: var(--main-color);
     transition: 1s ease-out;
     overflow: hidden;
     cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .landing .text .content{
     max-width: 500px;

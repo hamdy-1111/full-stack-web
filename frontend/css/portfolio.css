@@ -7,6 +7,14 @@
 body{
     background-color: black;
 }
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
 .main-heading h2::before{
     background-color: white;
 }

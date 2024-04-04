@@ -1,0 +1,331 @@
+:root{
+    --main-color: #9c27b0;
+    --transparent-color: #9c27b099;
+    --text-color:#777;
+    --section-padding: 100px;
+}
+/* START GLOPAL RULES */
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Work Sans', sans-serif;
+    background: url("../images/loginBackground.jpg");
+    background-size: 300vh;
+    background-repeat: no-repeat;
+}
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+/* Small )*/
+@media
+(min-width: 576px) {
+    .container{width: 550px;
+} }
+
+/* Medium )*/
+@media
+(min-width: 768px) { 
+    .container{width: 750px;
+} }
+
+/* Large )*/
+@media
+(min-width: 992px) { 
+    .container{width: 970px;
+} }
+
+/* X-Large )*/
+@media
+(min-width: 1200px) { 
+    .container{
+    width: 1170px;
+} }
+
+/* XX-Large)*/
+@media
+(min-width: 1400px) {
+    .container{width:1200px;
+} }
+ul{
+    list-style: none;
+}
+/* END GLOPAL RULES */
+/* START HEADER */
+.container{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 97px;
+}
+header{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+header .container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+}
+header .container::after{
+    content: '';
+    position: absolute;
+    height: 1px;
+    background-color: #a2a2a2;
+    width: calc(100% - 30px);
+    bottom: 0;
+    left: 15px;
+}
+header .logo {
+    height: 40px;
+    transition: .6s ease-out;
+    color: var(--main-color);
+}
+header .logo.active,
+header .logo:hover{
+    color: var(--transparent-color);
+}
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+
+}
+@media(min-width: 768px) {
+    header nav #toggle-menu{
+        display: none;
+    }
+}
+header nav ul {
+    display: flex;
+} 
+@media(max-width: 767px) {
+    header nav ul {
+        display: none;
+    }
+    header nav ul.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    header nav ul li a {
+        padding: 15px !important;
+    }
+    header nav i {
+        cursor: pointer;
+    }
+}
+header nav #toggle-menu{
+    color: white;
+    font-size: 22px;
+}
+
+header nav ul li a{
+    padding: 40px 10px;
+    display: block;
+    color: white;
+    -webkit-text-decoration:none ;
+    text-decoration:none ;
+    font-size: 14px;
+    transition: .3s;
+    z-index: 3;
+    position: relative;
+}
+header nav ul li a.active,
+header nav ul li a:hover{
+    color: var(--main-color);
+    border-bottom: 1px solid var(--main-color);
+}
+header nav .form{
+    width: 40px;
+    height: 30px;
+    position: relative;
+    margin-left: 30px;
+    border-left: 1px solid white;
+    align-self: center;
+}
+header nav .form i {
+    color: white;
+    position: absolute;
+    font-size: 20px;
+    top: 50%;
+    transform:translateY(-50%) ;
+    right: 0;
+    cursor: pointer;
+}
+
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--main-color);
+    color: black;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 3px 50px rgb(48, 1, 129);
+    transition: .3s; 
+    z-index: 5;
+}
+#scrollTopBtn::after{
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left:50%;
+    transform:translatex(-50%) ;
+    width: 120%;
+    height: 110%;
+    border: black;
+    border-width: 0 3px 4px 3px;
+    border-style: solid;
+    border-radius: 50%;
+}
+#scrollTopBtn:hover{
+    transform: scale(1.2) ;
+}
+#scrollTopBtn:hover i{
+    position: relative;
+    transform: scale(1.1) ;
+    bottom: 6px;
+}
+/* END  HEADER*/
+
+/* Apply basic styling to the wraper */
+.wraper {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0, 0, 0, 0.286);
+    border-radius: 15px;
+}
+/* Apply styles to the form elements inside the wrapper */
+.wraper form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.wraper h2 {
+    font-size: 24px;
+    margin-bottom: 35px;
+    position: relative;
+    left: 100px;
+    -webkit-user-select: none;
+    -moz-user-select:none ;
+    -ms-user-select:none ;
+    user-select: none;
+}
+
+.wraper input[type="text"],
+.wraper input[type="email"],
+.wraper input[type="password"],
+.wraper button,
+.wraper span {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.245);
+    border: none;
+    transition: .5s;
+    width: 270px;
+}
+.wraper input::-webkit-input-placeholder{
+    color: black;
+}
+.wraper input::-moz-placeholder{
+    color: black;
+}
+.wraper input:-ms-input-placeholder{
+    color: black;
+}
+.wraper input::-ms-input-placeholder{
+    color: black;
+}
+.wraper input::placeholder{
+    color: black;
+}
+.wraper input:hover ,.wraper input:focus{
+    border: none;
+    outline: none;
+    box-shadow: 0 0 6px var(--main-color);
+}
+.wraper input:focus{
+    box-shadow: 0 0 15px var(--main-color);
+}
+
+.wraper button {
+    background-color: var(--main-color);
+    color: #ffffff99;
+    cursor: pointer;
+    border: none;
+    transition: .5s;
+    letter-spacing: 1px;
+}
+
+.wraper button:hover {
+    background-color: var(--transparent-color);
+    letter-spacing: 2px;
+}
+
+.wraper span {
+    text-decoration: none;
+    color: var(--main-color);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    transition: .5s;
+}
+.wraper span:hover{
+    color: #9b27b0af;
+}
+/* Hide the sign-up form by default inside the wrapper */
+.wraper #signup-form {
+    display: none;
+}
+
+/* Style the image preview inside the wrapper */
+.wraper #photo-preview {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    position: relative;
+    left: 88px;
+}

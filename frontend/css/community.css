@@ -24,7 +24,14 @@ body{
     width: 90%;
     background-color: black;
 }
-
+::-moz-selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
+::selection {
+    background: #c4d0b6;
+    color: #4CAF50;
+}
 /* Small )*/
 @media
 (min-width: 576px) {
@@ -102,6 +109,10 @@ header nav {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 @media(min-width: 768px) {
     header nav #toggle-menu{
@@ -277,6 +288,10 @@ header nav .form i {
     transition: top 0.3s ease; 
     z-index: 999;
     border-radius: 0 0 5px 5px ;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .navbar-scrolled {
     top: 0; 
@@ -299,6 +314,10 @@ header nav .form i {
     border-style: solid;
     background-color: var(--st-color);
     transition: .3s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .makingPost:hover{
     border-color: #E91E63;
@@ -354,6 +373,10 @@ margin-top: 10px;
     width: 50px;
     position: relative;
     cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .makingPost-image{
     position: relative;
@@ -379,6 +402,11 @@ margin-top: 10px;
     transform: translateY(50%);
     bottom: 4px;
     cursor: default;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    cursor: text;
 }
 .makingPost .makingPost-text input{
 width: 300px;
@@ -549,6 +577,10 @@ border: none;
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .media video{
     border-radius: 10px;
@@ -558,6 +590,10 @@ border: none;
     margin-left: auto;
     margin-right: auto;
     width: 500px;
+        -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 @media (max-width : 667px){
     .media video{
