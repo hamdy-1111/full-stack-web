@@ -35,7 +35,7 @@
 
 
 <div class="wraper">
-        <form id="signin-form">
+        <form id="signin-form" action="/sign-in" method="post">
             <h2>Sign In</h2>
             <input type="text" id="username" placeholder="Username or Email" required>
             <input type="password" id="password" placeholder="Password" required>
@@ -43,7 +43,7 @@
             <p>Don't have an account? <span id="signin-link" class="soundButton" data-sound="clickSoundGroup1">Sign Up</span></p>
         </form>
 
-    <form id="signup-form" action="/register" method="POST" style="display: none;">
+    <form id="signup-form" action="/sign-up" method="post" style="display: none;">
     <h2>Sign Up</h2>
     <div>
         <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
