@@ -219,10 +219,9 @@ header nav .form i {
 /* Apply basic styling to the wraper */
 .wraper {
     max-width: 400px;
-    margin: 0 auto;
     padding: 30px;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%,-50%);
     background: rgba(0, 0, 0, 0.286);
@@ -240,6 +239,7 @@ header nav .form i {
     margin-bottom: 35px;
     position: relative;
     left: 100px;
+    color: #da00ff;
     -webkit-user-select: none;
     -moz-user-select:none ;
     -ms-user-select:none ;
@@ -261,20 +261,43 @@ header nav .form i {
     transition: .5s;
     width: 270px;
 }
+/* Style the checkbox */
+#invalidCheck3 {
+    display: none;
+}
+
+/* Style the custom checkbox */
+#invalidCheck3 + .form-check-label::before {
+    content: "\f058";
+    font-family: "Font Awesome 6 Free"; /* Font family for Font Awesome */
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Change the color of the custom checkbox when checked */
+#invalidCheck3:checked + .form-check-label::before {
+    content: "\f058";
+    font-family: "Font Awesome 6 Free"; /* Font family for Font Awesome */
+    background-color: var(--main-color);
+    border-radius: 50%;
+}
 .wraper input::-webkit-input-placeholder{
-    color: black;
+    color: #da00ff;
 }
 .wraper input::-moz-placeholder{
-    color: black;
+    color: #da00ff;
 }
 .wraper input:-ms-input-placeholder{
-    color: black;
+    color: #da00ff;
 }
 .wraper input::-ms-input-placeholder{
-    color: black;
+    color: #da00ff;
+}
+.wraper input::-webkit-input-placeholder{
+    color: #da00ff75;
 }
 .wraper input::placeholder{
-    color: black;
+    color: #da00ff75;
 }
 .wraper input:hover ,.wraper input:focus{
     border: none;
@@ -298,7 +321,9 @@ header nav .form i {
     background-color: var(--transparent-color);
     letter-spacing: 2px;
 }
-
+.wraper p{
+    color: var(--text-color);
+}
 .wraper span {
     text-decoration: none;
     color: var(--main-color);
@@ -310,6 +335,19 @@ header nav .form i {
         -ms-user-select: none;
             user-select: none;
     transition: .5s;
+}
+@media(max-width:380px){
+    .wraper {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        position: absolute;
+        top: 57%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: rgba(0, 0, 0, 0.286);
+        border-radius: 15px;
+    }
 }
 .wraper span:hover{
     color: #9b27b0af;
@@ -328,4 +366,143 @@ header nav .form i {
     border-radius: 50%;
     position: relative;
     left: 88px;
+}
+/* style.css */
+
+.verification h2{
+    position: relative;
+    left: 21%;
+}
+.verification button{
+    position: relative;
+    left: 9.7%;
+}
+.verification p{
+    position: relative;
+    left: 19%;
+    font-size: larger;
+    color: #4CAF50;
+}
+.verification p span{
+    position: relative;
+    left: 18%;
+}
+.input-area {
+	width: 40px !important;
+	border: none;
+	border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+	margin: 0 10px;
+	text-align: center;
+	font-size: 36px;
+    position: relative;
+    left: 12%;
+}
+
+.input-area:focus {
+	border-bottom: 3px solid orange;
+	outline: none;
+}
+
+
+
+
+
+
+
+
+
+.hallo {
+    max-width: 400px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #000000d9;
+    border-radius: 15px;
+}
+
+.hallo .container {
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.hallo .card {
+    border-radius: 15px;
+}
+
+
+.hallo .user-img img {
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+    left: 27%;
+}
+@media (max-width: 579px) {
+    .hallo .user-img img {
+        left: 23%;
+    }
+    .hallo span{
+        display: none;
+    }
+}
+.hallo .name {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 27%;
+    color: var(--text-color);
+}
+
+.hallo .mail {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.hallo .mail a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+.hallo .mail a:hover {
+    color: #9c65a5;
+}
+
+.hallo .icons {
+    margin-bottom: 15px;
+    position: relative;
+    left: 29%;
+}
+
+.hallo .iBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.hallo .iBtn i {
+    font-size: 1.5rem;
+    color: var(--transparent-color);
+    transition: color 0.3s;
+}
+
+.hallo .iBtn i:hover {
+    color: #9c65a5;
+}
+
+.hallo .startBtn {
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    left: 19%;
+}
+
+.hallo .startBtn:hover {
+    background-color: var(--transparent-color);
 }
