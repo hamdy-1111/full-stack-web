@@ -1,6 +1,3 @@
 [submodule "server/external/json"]
 	path = server/external/json
 	url = https://github.com/nlohmann/json.git
-[submodule "server/external/cryptopp"]
-	path = server/external/cryptopp
-	url = https://github.com/abdes/cryptopp-cmake.git
