@@ -9,7 +9,7 @@ using std::shared_ptr;
 
 class root_resource : public http_resource {
 public:
-    shared_ptr<http_response> render(const http_request &req) override;
+    shared_ptr<http_response> render_GET(const http_request &req) override;
 
     http_response *get_requested_content(const http_request &req);
 

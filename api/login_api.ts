@@ -6,7 +6,8 @@ interface UserLoginData {
 interface UserRegisterData {
     useremail: string,
     username: string,
-    password: string
+    password: string,
+    profile_pic: any
 };
 
 export async function send_login_data (login_data: UserLoginData) {

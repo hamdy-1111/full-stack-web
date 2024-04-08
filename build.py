@@ -29,8 +29,8 @@ if len(sys.argv) >= 3:
 cmake_config_cl = ["cmake" ,"-S", ".", "-B"] # all builds starts with these args 'cmake' is the command
 cmake_build_cl = ["cmake" , "--build"]
 if OS == "windows":
+    cmake_config_cl[0] = "x86_64-w64-mingw32-cmake"
     cmake_config_cl.append("cmakefiles-mingw/")
-    cmake_config_cl.append("-DOS_NAME:String=Windows") # OS_NAME is a variable I use in CMakeLists.txt
     cmake_build_cl.append("cmakefiles-mingw/")
 elif OS == "linux":
     cmake_config_cl.append("cmakefiles/")

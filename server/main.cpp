@@ -4,14 +4,36 @@
 #include <iostream>
 // my code
 #include "root/root.hpp"
+#include "creditials/login/login.hpp"
+#include "creditials/signup/signup.hpp"
+
+#include "resources/database.hpp"
+
 using namespace httpserver;
+class w : public webserver {
+      
+};
+
 int main(int argc, char const *argv[])
 {
-    webserver ws = create_webserver(80);
-    root_resource root_rc;
-    ws.register_resource("/", &root_rc, true);
+    webserver ws = create_webserver(80)
+        .file_upload_target(FILE_UPLOAD_MEMORY_ONLY)
+        .file_upload_dir("database/cache")
+        .generate_random_filename_on_upload();
 
-    std::cout << "SERVER RUNNING." << std::endl;
+    root_resource root_rc;
+    login_resource login_rc;
+    signup_resource signup_rc;
+
+    DataBaseManager::InitDatabases(); // Connect to databases
+    
+    ws.register_resource("/", &root_rc, true);
+    ws.register_resource("/sign-in", &login_rc);
+    ws.register_resource("/sign-up", &signup_rc);
+
+    std::cout << "Connect to http://localhost:80" << std::endl; 
     ws.start(true);
+
+    DataBaseManager::FinalDatabases(); // clean up memory
     return 0;
 }

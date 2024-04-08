@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Check if the checkbox is checked
         if (!checkbox.checked) {
             // Prevent form submission
-            event.preventDefault();
+            //event.preventDefault();
             // Show the error message
             errorMessage.style.display = 'block';
         }
