@@ -26,7 +26,7 @@ if len(sys.argv) >= 3:
     else:
         MODE = sys.argv[2]
 
-cmake_config_cl = ["cmake" ,"-S", ".", "-B"] # all builds starts with these args 'cmake' is the command
+cmake_config_cl = ["cmake" ,"-G", "Ninja","-S", ".", "-B"] # all builds starts with these args 'cmake' is the command
 cmake_build_cl = ["cmake" , "--build"]
 if OS == "windows":
     cmake_config_cl[0] = "x86_64-w64-mingw32-cmake"
@@ -42,5 +42,5 @@ if MODE == "release":
 elif MODE == "debug":
     cmake_config_cl.append("-DCMAKE_BUILD_TYPE=Debug")
 
-sp.run(cmake_config_cl)
+sp.run(cmake_config_cl, stdout=sp.DEVNULL)
 sp.run(cmake_build_cl)
