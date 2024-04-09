@@ -5,3 +5,6 @@ server.exe
 
 # don't send linux version to git
 server-linux
+
+#cert
+cert/
