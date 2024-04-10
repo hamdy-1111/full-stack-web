@@ -157,84 +157,33 @@ const timerInterval = setInterval(updateCountdown, 1000); // Update every second
 
 
 
-// verify.js
 
 // Event listener for form submission
-document.querySelector('.verification').addEventListener('submit', function(event) {
-event.preventDefault(); // Prevent form submission
-const otp = getEnteredOTP(); // Get the entered OTP from input fields
-
-// Send the entered OTP to the server for verification via fetch
-verifyOTP(otp)
-    .then(data => {
-        if (data.success) {
-            // Redirect user to success page or perform other actions
-            window.location.href = 'success.html';
-        } else {
-            // Display error message to the user
-            showError(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // Display error message to the user
-        showError('An error occurred while verifying OTP. Please try again later.');
-    });
-});
-
-// Function to retrieve entered OTP
-function getEnteredOTP() {
-// Retrieve the entered OTP from input fields and concatenate them
-return Array.from(document.querySelectorAll('.inputVerify .input-area'))
-    .map(input => input.value)
-    .join('');
-}
-
-// Function to send OTP for verification
-async function verifyOTP(otp) {
-try {
-    const response = await fetch('/verify-otp', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ otp: otp })
-    });
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return await response.json();
-} catch (error) {
-    throw error;
-}
-}
-
-// Event listener for form submission
-document.querySelector('.verification').addEventListener('submit', function(event) {
+document.querySelector('.verification').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent form submission
     const otp = getEnteredOTP(); // Get the entered OTP from input fields
 
-    // Send the entered OTP to the server for verification via fetch
-    verifyOTP(otp)
-        .then(data => {
-            if (data.success) {
-                // Get stored form data from cookies
-                const email = getCookie('email');
-                const username = getCookie('username');
-                const password = getCookie('password');
-                
-                // Send form data to backend for further processing
-                sendDataToBackend(email, username, password);
-            } else {
-                // Display error message to the user
-                showError(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+    try {
+        // Send the entered OTP to the server for verification via fetch
+        const verificationResult = await verifyOTP(otp);
+
+        if (verificationResult.success) {
+            // Get stored form data from cookies
+            const email = getCookie('email');
+            const username = getCookie('username');
+            const password = getCookie('password');
+            
+            // Send form data to backend for further processing
+            await sendDataToBackend(email, username, password);
+        } else {
             // Display error message to the user
-            showError('An error occurred while verifying OTP. Please try again later.');
-        });
+            handleFetchError(verificationResult);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        // Display error message to the user
+        showError('An error occurred while processing your request. Please try again later.');
+    }
 });
 
 // Function to retrieve entered OTP
@@ -253,16 +202,19 @@ async function verifyOTP(otp) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ otp: otp })
+            body: JSON.stringify({ otp })
         });
+
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            handleFetchError(response);
         }
+
         return await response.json();
     } catch (error) {
         throw error;
     }
 }
+
 
 // Function to retrieve a cookie value by name
 function getCookie(name) {
@@ -275,36 +227,45 @@ function getCookie(name) {
     }
     return null;
 }
-// Function to send form data to backend for further processing
-function sendDataToBackend(email, username, password) {
-    // Get the photo filename from cookies
-    const photoFilename = getCookie('photoFilename');
 
-    // Example: Send data to backend using Fetch API
-    fetch("/process-signup", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, username, password, photoFilename })
-    })
-    .then(response => {
+// Function to send form data to backend for further processing
+
+async function sendDataToBackend(email, username, password) {
+    try {
+        // Get the photo filename from cookies
+        const photoFilename = getCookie('photoFilename');
+
+        // Example: Send data to backend using Fetch API
+        const response = await fetch("/process-signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, username, password, photoFilename })
+        });
+
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+            handleFetchError(response);
         }
-        return response.json(); // Assuming backend returns JSON response
-    })
-    .then(data => {
+
+        const data = await response.json(); // Assuming backend returns JSON response
+        
         // Handle response from backend
         console.log("Data sent to backend:", data);
         // Redirect user to success page or perform other actions
         window.location.href = 'profile.html';
-    })
-    .catch(error => {
+    } catch (error) {
         console.error("Error:", error);
         // Display error message to the user
         showError("There was a problem processing your sign-up. Please try again later.");
-    });
+    }
 }
 
-
+// Function to handle fetch errors
+function handleFetchError(response) {
+    // Check for specific HTTP error status
+    if (response.status === 404) {
+        window.location.href = '404.html'; // Redirect to custom error page
+    }
+    throw new Error("Network response was not ok");
+}
