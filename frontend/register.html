@@ -64,21 +64,6 @@
         </div>
         <p>I have already an account <span id="signup-link" class="soundButton" data-sound="clickSoundGroup1">Sign in</span></p>
     </form>
-    <!-- ##################################### -->
-	<form class="verification" style="display: none;">
-        <h2>OTP verification</h2>
-		<div id="inputVerify" class="inputVerify">
-			<input class="input-area" type="text"
-				inputmode="numeric" maxlength="1" />
-			<input class="input-area" type="text"
-				inputmode="numeric" maxlength="1" />
-			<input class="input-area" type="text"
-				inputmode="numeric" maxlength="1" />
-			<input class="input-area" type="text"
-				inputmode="numeric" maxlength="1" />
-            <button type="submit" class="soundButton" data-sound="clickSoundGroup1" >verify</button>
-            <p><span id="countdown" style="position: relative;left: 0%;font-size: larger;color: #4CAF50; cursor:default;"> 3:00 </span><span id="#" class="soundButton" data-sound="clickSoundGroup1">resend code</span></p></div>
-	</form>
 </div>
 
 
@@ -90,6 +75,7 @@
 <audio id="likeSound" src="sounds/mixkit-retro-game-notification-212.wav"></audio>
 <!-- Sounds -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="js/register.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<script src="js/register.js"></script>
 </body>
 </html>

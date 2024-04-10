@@ -261,33 +261,23 @@ function scrollToTop() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
 }
 
+// Function to encrypt data using CryptoJS AES encryption
+function encryptData(data) {
+    const key = CryptoJS.enc.Utf8.parse('your_secret_key'); // Replace 'your_secret_key' with your actual secret key
+    const encryptedData = CryptoJS.AES.encrypt(data, key, { mode: CryptoJS.mode.ECB }).toString();
+    return encryptedData;
+}
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    const checkbox = document.getElementById("invalidCheck3");
-    const errorMessage = document.querySelector(".invalid-feedback");
-    
-    // Add event listener to checkbox
-    checkbox.addEventListener("change", function () {
-        // Check if the checkbox is checked
-        if (checkbox.checked) {
-            // Hide the error message
-            errorMessage.style.display = "none";
-        } else {
-            // Show the error message
-            errorMessage.style.display = "block";
-        }
-    });
-});
-
+// Event listener for form submission
 document.getElementById("signup-form").addEventListener("submit", function (event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
     // Get form data
     const formData = new FormData(this);
 
     // Check if the checkbox is checked
     if (!document.getElementById("invalidCheck3").checked) {
-        // Prevent form submission
-        event.preventDefault();
         // Show the error message
         showError("You must agree to the terms and conditions.", "Agreement Required");
         // Focus on the checkbox for user attention
@@ -296,36 +286,32 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     }
 
     // Check if passwords match
-    const password = document.getElementById("signup-password").value;
-    const confirmPassword = document.getElementById("signupConfirmPassword").value;
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirm_password");
     if (password !== confirmPassword) {
-        event.preventDefault();
         showError("Passwords do not match.", "Password Mismatch");
         // Focus on the password field for user attention
-        document.getElementById("signup-password").focus();
+        document.getElementById("signupConfirmPassword").focus();
         return; // Stop further execution
     }
 
-    // Send form data to backend using Fetch API
-    fetch("/sign-up", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.text(); // Assuming backend returns text response
-        })
-        .then((data) => {
-            // Handle successful response from backend
-            console.log("Success:", data);
-            // Optionally, redirect user to another page or display a success message
-        })
-        .catch((error) => {
-            // Handle errors
-            console.error("Error:", error);
-            // Display error message to the user
-            showError("There was a problem submitting the form. Please try again later.", "Form Submission Error");
-        });
+    // Encrypt form data
+    const encryptedEmail = encryptData(formData.get('email'));
+    const encryptedUsername = encryptData(formData.get('username'));
+    const encryptedPassword = encryptData(formData.get('password'));
+
+    // Store encrypted form data in cookies
+    document.cookie = `email=${encryptedEmail}; path=/`;
+    document.cookie = `username=${encryptedUsername}; path=/`;
+    document.cookie = `password=${encryptedPassword}; path=/`;
+
+    // Get the selected photo
+    const photoFile = document.getElementById('photo').files[0];
+    if (photoFile) {
+        // Store the filename of the photo in a cookie
+        document.cookie = `photoFilename=${photoFile.name}; path=/`;
+    }
+
+    // Redirect user to OTP verification page
+    window.location.href = 'verify.html';
 });
