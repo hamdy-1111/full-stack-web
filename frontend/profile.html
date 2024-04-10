@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>profile</title>
     <link rel="icon" type="image/x-icon" href="path/to/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,25 +33,33 @@
         </div>
     </header>
 
-
-<div class="wraper">
-    <form id="signin-form" action="/sign-in" method="post" >
-        <h2>Sign In</h2>
-        <input type="text" id="username" placeholder="Username or Email" name="username" required>
-        <input type="password" id="password" placeholder="Password" name="password" required>
-        <button type="submit" class="soundButton" data-sound="clickSoundGroup1">Sign In</button>
-        <p>Don't have an account? <span id="signin-link" class="soundButton" data-sound="clickSoundGroup1">Sign Up</span></p>
-        <span class="soundButton" id="changePwLink" data-sound="clickSoundGroup1">Forget password</span>
-    </form>
     <!-- ##################################### -->
-    <form id="forget-form"  action="" method="post" style="display: none;">
-        <h2 style="left: 9%;">change password</h2>
-        <input type="text" id="username" placeholder="Username or Email" name="username" required>
-        <input type="password" id="password" placeholder="Password" name="password" required>
-        <input type="password" id="confirmPassword" placeholder="confirm password" name="password" required>
-        <button type="submit" id="change" class="soundButton" data-sound="clickSoundGroup1">change</button>
-    </form>
-</div>
+<section class="hallo">
+    <div class="container">
+        <div class="card">
+            <div class="user-img">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"/>
+            </div>
+            <h4 class="name">your name</h4>
+            <p class="mail">@user <span>|</span> <a
+                href="#!">example@gmail.com</a></p>
+            <div class="icons">
+                <button type="button" class="iBtn">
+                <i class="fab fa-facebook-f fa-lg"></i>
+                </button>
+                <button type="button" class="iBtn">
+                <i class="fab fa-twitter fa-lg"></i>
+                </button>
+                <button type="button" class="iBtn">
+                <i class="fab fa-skype fa-lg"></i>
+                </button>
+            </div>
+            <button type="button" class="startBtn">
+                Get started
+            </button>
+        </div>
+    </div>
+</section>
 
 
 

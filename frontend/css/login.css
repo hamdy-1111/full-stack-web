@@ -251,7 +251,7 @@ header nav .form i {
 .wraper input[type="password"],
 .wraper button,
 .wraper span {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -260,6 +260,16 @@ header nav .form i {
     border: none;
     transition: .5s;
     width: 270px;
+    color: #bcb9b9;
+}
+@media(max-width:684px){
+    .wraper input[type="text"],
+    .wraper input[type="email"],
+    .wraper input[type="password"],
+    .wraper button,
+    .wraper span {
+        margin-bottom: 10px;
+    }
 }
 /* Style the checkbox */
 #invalidCheck3 {
@@ -351,10 +361,6 @@ header nav .form i {
 }
 .wraper span:hover{
     color: #9b27b0af;
-}
-/* Hide the sign-up form by default inside the wrapper */
-.wraper #signup-form {
-    display: none;
 }
 
 /* Style the image preview inside the wrapper */

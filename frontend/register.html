@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>sign up</title>
     <link rel="icon" type="image/x-icon" href="path/to/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,22 +35,50 @@
 
 
 <div class="wraper">
-    <form id="signin-form" action="/sign-in" method="post" >
-        <h2>Sign In</h2>
-        <input type="text" id="username" placeholder="Username or Email" name="username" required>
-        <input type="password" id="password" placeholder="Password" name="password" required>
-        <button type="submit" class="soundButton" data-sound="clickSoundGroup1">Sign In</button>
-        <p>Don't have an account? <span id="signin-link" class="soundButton" data-sound="clickSoundGroup1">Sign Up</span></p>
-        <span class="soundButton" id="changePwLink" data-sound="clickSoundGroup1">Forget password</span>
+    <!-- ##################################### -->
+    <form id="signup-form" action="/sign-up" method="post" enctype="multipart/form-data">
+        <h2>Sign Up</h2>
+        <div>
+        <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
+        <img id="photo-preview" src="user.png" alt="Preview" style="cursor: pointer;">
+        </div>
+        <div>
+        <input type="email" id="signup-email" name="email" placeholder="E-mail" required>
+        </div>
+        <div>
+        <input type="text" id="signup-username" name="username" placeholder="username"  required>
+        </div>
+        <div>
+        <input type="password" id="signup-password" name="password" placeholder="password" required>
+        </div>
+        <div>
+        <input type="password" id="signupConfirmPassword" name="confirm_password" placeholder="confirm password" required>
+        </div>
+        <div>
+            <input type="checkbox" value="" name="invalidCheck3" id="invalidCheck3" />
+            <label class="form-check-label" for="invalidCheck3" style="color: #a2a0a0;">Agree to terms and conditions</label>
+            <div class="invalid-feedback" style="display: none; color: red;">You must agree before submitting.</div>
+        </div>
+        <div>
+        <button type="submit" class="soundButton" data-sound="clickSoundGroup1" >Sign Up</button>
+        </div>
+        <p>I have already an account <span id="signup-link" class="soundButton" data-sound="clickSoundGroup1">Sign in</span></p>
     </form>
     <!-- ##################################### -->
-    <form id="forget-form"  action="" method="post" style="display: none;">
-        <h2 style="left: 9%;">change password</h2>
-        <input type="text" id="username" placeholder="Username or Email" name="username" required>
-        <input type="password" id="password" placeholder="Password" name="password" required>
-        <input type="password" id="confirmPassword" placeholder="confirm password" name="password" required>
-        <button type="submit" id="change" class="soundButton" data-sound="clickSoundGroup1">change</button>
-    </form>
+	<form class="verification" style="display: none;">
+        <h2>OTP verification</h2>
+		<div id="inputVerify" class="inputVerify">
+			<input class="input-area" type="text"
+				inputmode="numeric" maxlength="1" />
+			<input class="input-area" type="text"
+				inputmode="numeric" maxlength="1" />
+			<input class="input-area" type="text"
+				inputmode="numeric" maxlength="1" />
+			<input class="input-area" type="text"
+				inputmode="numeric" maxlength="1" />
+            <button type="submit" class="soundButton" data-sound="clickSoundGroup1" >verify</button>
+            <p><span id="countdown" style="position: relative;left: 0%;font-size: larger;color: #4CAF50; cursor:default;"> 3:00 </span><span id="#" class="soundButton" data-sound="clickSoundGroup1">resend code</span></p></div>
+	</form>
 </div>
 
 
@@ -61,7 +89,7 @@
 <audio id="clickSoundGroup3" src="sounds/mixkit-modern-technology-select-3124.wav"></audio>
 <audio id="likeSound" src="sounds/mixkit-retro-game-notification-212.wav"></audio>
 <!-- Sounds -->
-    <script src="js/login.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="js/register.js"></script>
 </body>
 </html>
