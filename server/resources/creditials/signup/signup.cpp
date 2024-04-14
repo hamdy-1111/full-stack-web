@@ -86,6 +86,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     // generate random key
     string key = random_string(40);
 
+    
     try {
         message msg;
         msg.from(mail_address("", "ammarramadan573@gmail.com"));
