@@ -1,6 +1,7 @@
 #include "security.hpp"
 #include <openssl/sha.h>
 #include <random>
+#include <sstream>
 
 std::string sha256_string(const std::string &string) {
     std::string obuf;
@@ -15,13 +16,13 @@ std::string sha256_string(const std::string &string) {
     return obuf;
 }
 
+static const std::string CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}/\\|?<>\"\';:~`,.";
+static std::random_device random_device;
+static std::mt19937 generator(random_device());
+static std::uniform_int_distribution<> distribution(0, CHARACTERS.size() - 1);
+
 std::string random_string(std::size_t length) {
-    const std::string CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}/\\|?<>\"\';:~`,.";
-
-    std::random_device random_device;
-    std::mt19937 generator(random_device());
-    std::uniform_int_distribution<> distribution(0, CHARACTERS.size() - 1);
-
+    
     std::string random_string;
 
     for (std::size_t i = 0; i < length; ++i) {
@@ -35,7 +36,7 @@ static std::random_device rd;
 static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dis(0, 15);
 static std::uniform_int_distribution<> dis2(8, 11);
-#include <sstream>
+
 std::string generate_uuid_v4() {
     std::stringstream ss;
     int i;
@@ -61,4 +62,16 @@ std::string generate_uuid_v4() {
         ss << dis(gen);
     };
     return ss.str();
+}
+
+static std::random_device rd_otp;
+static std::mt19937 gen_otp(rd_otp());
+static std::uniform_int_distribution<> dis_otp('0','9');
+std::string generate_otp_code() {
+    std::string otp = "";
+    otp.reserve(6);
+    for(int i = 0; i < 6 ; i++){
+        otp.push_back(dis_otp(gen_otp));
+    }
+    return otp;
 }

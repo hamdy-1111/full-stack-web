@@ -1,6 +1,8 @@
 #include "root.hpp"
 #include <filesystem>
 shared_ptr<http_response> root_resource::render_GET(const http_request &req) {
+    
+    //std::cout << "Requestor: " << string(req.get_requestor()) << " (" << req.get_path() << ") " << std::endl;
     return shared_ptr<http_response>(get_requested_content(req));
 }
 

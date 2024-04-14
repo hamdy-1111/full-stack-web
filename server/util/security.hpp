@@ -4,3 +4,4 @@
 std::string sha256_string(const std::string &string);
 std::string random_string(std::size_t length);
 std::string generate_uuid_v4();
+std::string generate_otp_code();
