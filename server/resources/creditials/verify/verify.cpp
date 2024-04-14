@@ -38,7 +38,7 @@ shared_ptr<http_response> verify_resource::serve_POST(const http_request &req) {
                     {"error", "no-error"},
                     {"uuid", uuid},
                     {"key", new_key},
-                    {"status", "user-verified"}
+                    {"verified", true}
                 };
                 string_response *res = new string_response(to_string(data));
                 res->with_header("Content-Type", "application/json");
