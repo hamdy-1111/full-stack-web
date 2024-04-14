@@ -172,9 +172,9 @@ document.querySelector('.verification').addEventListener('submit', async functio
             const email = getCookie('email');
             const username = getCookie('username');
             const password = getCookie('password');
-            
+            const photoFilename = getCookie('photoFilename');
             // Send form data to backend for further processing
-            await sendDataToBackend(email, username, password);
+            await sendDataToBackend(email, username, password , photoFilename );
         } else {
             // Display error message to the user
             handleFetchError(verificationResult);
@@ -230,10 +230,8 @@ function getCookie(name) {
 
 // Function to send form data to backend for further processing
 
-async function sendDataToBackend(email, username, password) {
+async function sendDataToBackend(email, username, password , photoFilename ) {
     try {
-        // Get the photo filename from cookies
-        const photoFilename = getCookie('photoFilename');
 
         // Example: Send data to backend using Fetch API
         const response = await fetch("/process-signup", {
