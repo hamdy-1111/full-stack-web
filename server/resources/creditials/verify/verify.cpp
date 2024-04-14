@@ -20,7 +20,7 @@ shared_ptr<http_response> verify_resource::serve_POST(const http_request &req) {
             int time_unix = query.getColumn(1);
 
             // if user is late delete
-            if( time(nullptr) - time_unix > 120 ) {
+            if( time(nullptr) - time_unix > 180 ) {
                 SQLite::Statement query_delete(*DataBaseManager::users ,"DELETE FROM users_verify_temp WHERE uuid = ?");
                 query_delete.bind(1, uuid);
                 query_delete.exec();

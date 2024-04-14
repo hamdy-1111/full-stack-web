@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
     ws.register_resource("/", &root_rc, true);
     ws.register_resource("/sign-in", &login_rc);
     ws.register_resource("/sign-up", &signup_rc);
-    ws.register_resource("/verify", &verify_rc);
+    ws.register_resource("/verify-otp", &verify_rc);
 
     std::cout << "Connect to https://localhost:443" << std::endl; 
     ws.start(true);

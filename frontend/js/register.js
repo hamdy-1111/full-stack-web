@@ -315,7 +315,7 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     }
 
     // Make an HTTP POST request to the backend
-    fetch('/your-backend-endpoint', {
+    fetch('/sign-up', {
         method: 'POST',
         body: formData,
     })
