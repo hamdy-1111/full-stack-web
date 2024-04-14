@@ -19,7 +19,7 @@ class w : public webserver {
 int main(int argc, char const *argv[])
 {
 
-    webserver ws = create_webserver(443)
+    webserver ws = create_webserver(3000)
         .use_ssl()
         .https_mem_key("cert/site.key")
         .https_mem_cert("cert/site.crt")
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
     ws.register_resource("/sign-up", &signup_rc);
     ws.register_resource("/verify-otp", &verify_rc);
 
-    std::cout << "Connect to https://localhost:443" << std::endl; 
+    std::cout << "Connect to https://localhost:3000" << std::endl; 
     ws.start(true);
 
     DataBaseManager::FinalDatabases(); // clean up memory
