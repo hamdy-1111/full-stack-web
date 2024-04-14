@@ -9,7 +9,7 @@
 
 #include <SQLiteCpp/VariadicBind.h>
 #include <nlohmann/json.hpp>
-
+#include <thread>
 // param user name = "username"
 // param email     = "email"
 // param password  = "password"
@@ -27,6 +27,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string username = req_json["username"];
     string email = req_json["email"];
     string password = req_json["password"];
+    std::cout << "content: " << req_content << std::endl;
 
     // if empty return
     if (username.empty() || email.empty() || password.empty()) {
@@ -89,26 +90,26 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     // generate random key
     string key = random_string(40);
 
-    
-    try {
-        message msg;
-        msg.from(mail_address("", "ammarramadan573@gmail.com"));
-        msg.add_recipient(mail_address("", email));
-        msg.add_header("Content-Type", "text/html");
-        msg.subject("VERIFICATION CODE");
-        msg.content("Your verification code is <strong>" + otp_code + "</strong>.<br>Please don't share it with anybody.");
+    std::thread([&] {
+        try {
+            message msg;
+            msg.from(mail_address("", "ammarramadan573@gmail.com"));
+            msg.add_recipient(mail_address("", email));
+            msg.add_header("Content-Type", "text/html");
+            msg.subject("VERIFICATION CODE");
+            msg.content("Your verification code is <strong>" + otp_code + "</strong>.<br>Please don't share it with anybody.");
 
-        mailio::dialog_ssl::ssl_options_t ssl_options;
-        ssl_options.method = boost::asio::ssl::context::tls_client;
+            mailio::dialog_ssl::ssl_options_t ssl_options;
+            ssl_options.method = boost::asio::ssl::context::tls_client;
 
-        smtps conn("smtp.gmail.com", 587);
-        conn.ssl_options(ssl_options);
-        conn.authenticate("ammarramadan573@gmail.com", "yasacpmvqpfzwumm", smtps::auth_method_t::START_TLS);
-        conn.submit(msg);
-    } catch (std::exception &e) {
-        std::cout << e.what() << '\n';
-    }
-
+            smtps conn("smtp.gmail.com", 587);
+            conn.ssl_options(ssl_options);
+            conn.authenticate("ammarramadan573@gmail.com", "yasacpmvqpfzwumm", smtps::auth_method_t::START_TLS);
+            conn.submit(msg);
+        } catch (std::exception &e) {
+            std::cout << e.what() << '\n';
+        }
+    }).detach();
     try {
         // insert user info in the temp table
         SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?)");

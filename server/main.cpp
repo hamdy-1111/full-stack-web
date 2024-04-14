@@ -16,6 +16,10 @@ class w : public webserver {
       
 };
 
+std::shared_ptr<http_response> not_found_custom(const http_request& req) {
+    return std::shared_ptr<file_response>(new file_response("frontend/404.html", 404, "text/html"));
+}
+
 int main(int argc, char const *argv[])
 {
 
@@ -23,7 +27,8 @@ int main(int argc, char const *argv[])
         .file_upload_target(FILE_UPLOAD_MEMORY_ONLY)
         .file_upload_dir("database/cache")
         .generate_random_filename_on_upload()
-        .tcp_nodelay();
+        .tcp_nodelay()
+        .not_found_resource(not_found_custom);
         
     root_resource root_rc;
     login_resource login_rc;

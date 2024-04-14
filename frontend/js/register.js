@@ -203,20 +203,16 @@ document.getElementById("signup-form").addEventListener("submit", function (even
         email: formData.get('email'),
         username: formData.get('username'),
         password: formData.get('password'),
-        verified: false, // Add the "verified" parameter with the value "false"
-        // Add other form fields as needed
+        photo: "0"
     };
-
-    // Append the image file to the FormData object
-    const photoFile = document.getElementById('photo').files[0];
-    if (photoFile) {
-        formData.append('photo', photoFile);
-    }
 
 // Make an HTTP POST request to the backend
 fetch('/sign-up', {
     method: 'POST',
-    body: formData,
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body),
 })
 .then(response => {
     if (response.ok) {
@@ -240,7 +236,7 @@ fetch('/sign-up', {
     }
 })
 .catch(error => {
-    console.error('Error signing up:', error);
+    console.error('Error signing up: '+ error);
     // Show error message to the user
     showError('Failed to sign up. Please try again later.', 'Signup Error');
 });

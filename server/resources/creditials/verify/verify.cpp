@@ -7,14 +7,21 @@
 #include <nlohmann/json.hpp>
 using namespace nlohmann;
 
-shared_ptr<http_response> verify_resource::serve_POST(const http_request &req) {
-    string req_content = string(req.get_content());
-    json req_json = json::parse(req_content);
-    string uuid = req_json["uuid"];
-    string key  = req_json["key"];
-    string otp  = req_json["otp-code"];
+shared_ptr<http_response> verify_resource::render_POST(const http_request &req) {
+    string uuid;
+    string key;
+    string otp;
+    try {
+        string req_content = string(req.get_content());
+        json req_json = json::parse(req_content);
+        uuid = req_json["uuid"];
+        key = req_json["key"];
+        otp = req_json["otp-code"];
 
-    std::cout << "content: " << req_content << std::endl;
+        std::cout << "content: " << req_content << std::endl;
+    } catch (const std::exception &e) {
+        std::cout << e.what() << '\n';
+    }
     try {
         SQLite::Statement query(*DataBaseManager::users, "SELECT otp_code, time_unix FROM users_verify_temp WHERE uuid = ? AND key = ?");
         SQLite::bind(query, uuid, key);
@@ -54,6 +61,7 @@ shared_ptr<http_response> verify_resource::serve_POST(const http_request &req) {
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
+    return shared_ptr<http_response>(new string_response(json({{"error", "something-wrong"}}), 500));
 }
 
 string verify_resource::add_new_user(string uuid, string key) {
