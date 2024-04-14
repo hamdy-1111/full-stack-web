@@ -268,10 +268,14 @@ function encryptData(data) {
     return encryptedData;
 }
 
+
+
+
+
 // Event listener for form submission
 document.getElementById("signup-form").addEventListener("submit", function (event) {
     // Prevent the default form submission behavior
-    // event.preventDefault();
+    event.preventDefault();
 
     // Get form data
     const formData = new FormData(this);
@@ -295,23 +299,38 @@ document.getElementById("signup-form").addEventListener("submit", function (even
         return; // Stop further execution
     }
 
-    // Encrypt form data
-    const encryptedEmail = encryptData(formData.get('email'));
-    const encryptedUsername = encryptData(formData.get('username'));
-    const encryptedPassword = encryptData(formData.get('password'));
+    // Construct the body of the HTTP request
+    const body = {
+        email: formData.get('email'),
+        username: formData.get('username'),
+        password: formData.get('password'),
+        verified: false, // Add the "verified" parameter with the value "false"
+        // Add other form fields as needed
+    };
 
-    // Store encrypted form data in cookies
-    document.cookie = `email=${encryptedEmail}; path=/`;
-    document.cookie = `username=${encryptedUsername}; path=/`;
-    document.cookie = `password=${encryptedPassword}; path=/`;
-
-    // Get the selected photo
+    // Append the image file to the FormData object
     const photoFile = document.getElementById('photo').files[0];
     if (photoFile) {
-        // Store the filename of the photo in a cookie
-        document.cookie = `photoFilename=${photoFile.name}; path=/`;
+        formData.append('photo', photoFile);
     }
 
-    // Redirect user to OTP verification page
-    window.location.href = 'verify.html';
+    // Make an HTTP POST request to the backend
+    fetch('/your-backend-endpoint', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            // Handle successful response (e.g., redirect user)
+            window.location.href = 'verify.html';
+        } else {
+            // Handle error response
+            throw new Error('Failed to sign up');
+        }
+    })
+    .catch(error => {
+        console.error('Error signing up:', error);
+        // Show error message to the user
+        showError('Failed to sign up. Please try again later.', 'Signup Error');
+    });
 });

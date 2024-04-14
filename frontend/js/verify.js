@@ -162,28 +162,7 @@ const timerInterval = setInterval(updateCountdown, 1000); // Update every second
 document.querySelector('.verification').addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent form submission
     const otp = getEnteredOTP(); // Get the entered OTP from input fields
-
-    try {
-        // Send the entered OTP to the server for verification via fetch
-        const verificationResult = await verifyOTP(otp);
-
-        if (verificationResult.success) {
-            // Get stored form data from cookies
-            const email = getCookie('email');
-            const username = getCookie('username');
-            const password = getCookie('password');
-            const photoFilename = getCookie('photoFilename');
-            // Send form data to backend for further processing
-            await sendDataToBackend(email, username, password , photoFilename );
-        } else {
-            // Display error message to the user
-            handleFetchError(verificationResult);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        // Display error message to the user
-        showError('An error occurred while processing your request. Please try again later.');
-    }
+    await verifyOTP(otp); // Call the verifyOTP function with the entered OTP
 });
 
 // Function to retrieve entered OTP
@@ -209,53 +188,16 @@ async function verifyOTP(otp) {
             handleFetchError(response);
         }
 
-        return await response.json();
-    } catch (error) {
-        throw error;
-    }
-}
-
-
-// Function to retrieve a cookie value by name
-function getCookie(name) {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.split('=');
-        if (cookieName === name) {
-            return cookieValue;
-        }
-    }
-    return null;
-}
-
-// Function to send form data to backend for further processing
-
-async function sendDataToBackend(email, username, password , photoFilename ) {
-    try {
-
-        // Example: Send data to backend using Fetch API
-        const response = await fetch("/process-signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, username, password, photoFilename })
-        });
-
-        if (!response.ok) {
-            handleFetchError(response);
-        }
-
         const data = await response.json(); // Assuming backend returns JSON response
         
         // Handle response from backend
-        console.log("Data sent to backend:", data);
+        console.log("Verification case sent to backend:", data);
         // Redirect user to success page or perform other actions
         window.location.href = 'profile.html';
     } catch (error) {
         console.error("Error:", error);
         // Display error message to the user
-        showError("There was a problem processing your sign-up. Please try again later.");
+        showError("There was a problem processing your verification. Please try again later.");
     }
 }
 
