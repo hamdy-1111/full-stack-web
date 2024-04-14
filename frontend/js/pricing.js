@@ -1,21 +1,40 @@
 document.addEventListener("DOMContentLoaded", function() {
     const links = document.querySelectorAll(".link");
+    
+    // Store initial styles for each link
+    const initialStyles = {};
     links.forEach(function(link) {
+        initialStyles[link] = {
+            backgroundColor: link.style.backgroundColor,
+            color: link.style.color,
+            borderTopLeftRadius: link.style.borderTopLeftRadius,
+            borderBottomLeftRadius: link.style.borderBottomLeftRadius
+        };
+        
         link.addEventListener('click', function() {
+            // Toggle link styles
             if (link.style.backgroundColor !== '#4070f4') {
-                link.style.backgroundColor = '#4070f4'; // Set the background color to red
+                // Set styles when link is clicked
+                resetStyles(); // Reset all links styles before applying new styles
+                link.style.backgroundColor = '#4070f4'; // Set the background color to blue
                 link.style.color = '#fff'; // Set text color to white
                 link.style.borderTopLeftRadius = '30px'; // Set border radius
                 link.style.borderBottomLeftRadius = '30px'; // Set border radius
-            } else {
-                link.style.backgroundColor = 'transparent'; // Set the background color to red
-                link.style.color = '#707070'; // Set text color to white
-                link.style.borderTopLeftRadius = '10px'; // Set border radius
-                link.style.borderBottomLeftRadius = '10px'; // Set border radius
             }
         });
     });
+    
+    // Function to reset styles of all links
+    function resetStyles() {
+        links.forEach(function(link) {
+            link.style.backgroundColor = initialStyles[link].backgroundColor;
+            link.style.color = initialStyles[link].color;
+            link.style.borderTopLeftRadius = initialStyles[link].borderTopLeftRadius;
+            link.style.borderBottomLeftRadius = initialStyles[link].borderBottomLeftRadius;
+        });
+    }
 });
+
     // JavaScript to toggle the visibility of the dropdown menu when clicking the link
     document.querySelectorAll('.dropdown').forEach(function(dropdown) {
         dropdown.addEventListener('click', function(event) {
