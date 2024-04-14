@@ -21,9 +21,12 @@ using namespace nlohmann;
 shared_ptr<http_response> signup_resource::render_POST(const http_request &req) {
 
     // get user info
-    string username = req.get_arg("username");
-    string email = req.get_arg("email");
-    string password = req.get_arg("password");
+    string req_content = string(req.get_content());
+    json req_json = json::parse(req_content);
+
+    string username = req_json["username"];
+    string email = req_json["email"];
+    string password = req_json["password"];
 
     // if empty return
     if (username.empty() || email.empty() || password.empty()) {
@@ -69,7 +72,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
 
     // check if user uploaded a photo
     int photo_state;
-    string photo = req.get_arg("photo");
+    string photo = req_json["photo"];
     if (photo == "0" || photo.empty()) {
         photo_state = 0;
     } else {
