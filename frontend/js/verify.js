@@ -183,7 +183,7 @@ async function verifyOTP(otp) {
         const requestBody = {
             uuid: uuid,
             key: key,
-            otp: otp
+            "otp-code": otp
         };
 
         const response = await fetch('/verify-otp', {
