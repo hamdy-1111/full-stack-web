@@ -176,12 +176,22 @@ function getEnteredOTP() {
 // Function to send OTP for verification
 async function verifyOTP(otp) {
     try {
+        // Get uuid and key from cookies
+        const uuid = getCookie('uuid');
+        const key = getCookie('key');
+
+        const requestBody = {
+            uuid: uuid,
+            key: key,
+            otp: otp
+        };
+
         const response = await fetch('/verify-otp', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ otp })
+            body: JSON.stringify(requestBody)
         });
 
         if (!response.ok) {
@@ -199,6 +209,13 @@ async function verifyOTP(otp) {
         // Display error message to the user
         showError("There was a problem processing your verification. Please try again later.");
     }
+}
+
+// Function to retrieve a specific cookie value
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
 // Function to handle fetch errors

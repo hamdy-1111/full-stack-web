@@ -228,16 +228,16 @@ fetch('/sign-up', {
     }
 })
 .then(data => {
-    // Extract uuid, key, and otp values from the response data
-    const { uuid, key, otp } = data;
-
-    // Set cookies for uuid, key, and otp
-    document.cookie = `uuid=${uuid}; path=/`;
-    document.cookie = `key=${key}; path=/`;
-    document.cookie = `otp=${otp}; path=/`;
-
-    // Redirect user to verification page
-    window.location.href = 'verify.html';
+    // Check if the response contains the required data
+    if (data && data.uuid && data.key) {
+        // Set cookies for uuid and key
+        document.cookie = `uuid=${data.uuid}; path=/`;
+        document.cookie = `key=${data.key}; path=/`;
+        // Redirect user to verification page
+        window.location.href = 'verify.html';
+    } else {
+        throw new Error('UUID and key not received');
+    }
 })
 .catch(error => {
     console.error('Error signing up:', error);
