@@ -37,7 +37,7 @@ target_link_libraries(${EXE_NAME} PRIVATE nlohmann_json)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(${EXE_NAME} PRIVATE -static -static-libgcc -static-libstdc++ )
-    target_link_libraries(${EXE_NAME} PRIVATE libhttpserver.a libmicrohttpd.a mailio libcrypto.a libws2_32.a libcrypt32.a libSQLiteCpp.a libsqlite3.a )
+    target_link_libraries(${EXE_NAME} PRIVATE libhttpserver.a libmicrohttpd.a mailio  libws2_32.a  libSQLiteCpp.a libsqlite3.a libwinpthread.a libssp.a libssl.a libstdc++.a libcrypto.a libcrypt32.a)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${EXE_NAME} PRIVATE httpserver SQLiteCpp OpenSSL::Crypto mailio)
 endif() 
