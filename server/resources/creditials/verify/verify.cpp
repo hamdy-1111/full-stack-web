@@ -25,7 +25,7 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
     try {
         SQLite::Statement query(*DataBaseManager::users, "SELECT otp_code, time_unix FROM users_verify_temp WHERE uuid = ? AND key = ?");
         SQLite::bind(query, uuid, key);
-        if (query.executeStep()) {
+        while (query.executeStep()) {
             string real_otp = query.getColumn(0);
             int time_unix = query.getColumn(1);
 
@@ -53,7 +53,7 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
                 res->with_header("Content-Type", "application/json");
                 return shared_ptr<http_response>(res);
             } else {
-                string_response *res = new string_response(json({{"error", "otp-code-wrong"}}));
+                string_response *res = new string_response(to_string(json({{"error", "otp-code-wrong"}})));
                 res->with_header("Content-Type", "application/json");
                 return shared_ptr<http_response>(res);
             }

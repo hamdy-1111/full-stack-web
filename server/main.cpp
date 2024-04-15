@@ -23,7 +23,7 @@ std::shared_ptr<http_response> not_found_custom(const http_request& req) {
 int main(int argc, char const *argv[])
 {
 
-    webserver ws = create_webserver(80)
+    webserver ws = create_webserver(3001)
         .file_upload_target(FILE_UPLOAD_MEMORY_ONLY)
         .file_upload_dir("database/cache")
         .generate_random_filename_on_upload()
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     ws.register_resource("/sign-up", &signup_rc);
     ws.register_resource("/verify-otp", &verify_rc);
 
-    std::cout << "Connect to https://localhost:80" << std::endl; 
+    std::cout << "Connect to https://localhost:3001" << std::endl; 
     ws.start(true);
 
     DataBaseManager::FinalDatabases(); // clean up memory
