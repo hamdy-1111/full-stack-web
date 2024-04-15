@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital vibe</title>
+    <link rel="icon" type="image/x-icon" href="images/logo/logo svg transparent.svg">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css-fa/all.min.css">
+    <link rel="stylesheet" href="css/pricing.css">
+    <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <style>
+        /* CSS with variables */
+:root {
+  --primary-color: #6C7A89;
+  --secondary-color: #00b894;
+  --decor-color: #BDC3C7;
+  --font: "proxima-nova", sans-serif;
+}
+
+/* Mixin for border-radius */
+.border-radius {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.2s ease-in-out;
+  font-family: var(--font);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--primary-color);
+}
+*:focus {
+  outline: none;
+}
+
+/* Body */
+body {
+}
+
+/* Wrapper */
+#wrapper {
+  position: absolute;
+  top: 25vh;
+  left: 0;
+  width: 100%;
+}
+
+/* Container */
+#container {
+  width: 720px;
+  height: 480px;
+  margin: 0 auto;
+  box-shadow: 1px 1px 10px 2px rgba(0,0,0,0.2);
+  overflow: hidden;
+  background: rgb(179,190,173);
+  background: -moz-linear-gradient(45deg, rgba(179,190,173,1) 0%, rgba(223,229,215,1) 60%, rgba(252,255,244,1) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(179,190,173,1) 0%,rgba(223,229,215,1) 60%,rgba(252,255,244,1) 100%);
+  background: linear-gradient(45deg, rgba(179,190,173,1) 0%,rgba(223,229,215,1) 60%,rgba(252,255,244,1) 100%); 
+  display: flex;
+}
+
+/* Info Section */
+#info {
+  width: 52%;
+  height: 480px;
+  background: -moz-linear-gradient(45deg, rgba(149,165,166,1) 0%, rgba(208,215,216,0) 56%, rgba(255,255,255,0) 100%);
+  background: -webkit-linear-gradient(45deg, rgba(149,165,166,1) 0%,rgba(208,215,216,0) 56%,rgba(255,255,255,0) 100%);
+  background: linear-gradient(45deg, rgba(149,165,166,1) 0%,rgba(208,215,216,0) 56%,rgba(255,255,255,0) 100%);
+}
+
+#info #product {
+  width: 500px;
+  margin: -50px 0 -85px -65px;
+}
+
+#info p {
+  width: 100%;
+  text-align: center;
+  line-height: 1.5em;
+  letter-spacing: 1px;
+}
+
+#info #price {
+  width: 50%;
+  margin: 0 auto;
+  letter-spacing: 1px;
+}
+
+#info #price h2 {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  color: #000;
+  padding-top: 10px;
+}
+/* Payment Section */
+#payment {
+    width: 40%;
+    padding: 95px 50px 25px 0;
+    position: relative;
+    left: 25%;
+    top: 40%;
+    transform: translateX(-40%) translateY(-50%);
+}
+
+#checkout {
+  width: 100%;
+}
+
+#checkout input {
+  margin-bottom: 15px;
+}
+
+#checkout label {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.6em;
+  padding: 0 0 5px 10px;
+}
+
+#checkout #cvc-label {
+  margin-left: 25px;
+}
+
+#checkout .card {
+  width: 29%;
+  margin: 0 10% 25px 10%;
+  border: none;
+  background: none;
+  height: 50px;
+  cursor: pointer;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+#checkout .card:focus {
+  -webkit-filter: none;
+  filter: none;
+}
+
+#checkout #visa {
+  background-image: url("http://enwaara.se/codepen/visa.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+#checkout #mastercard {
+  background-image: url("http://enwaara.se/codepen/mastercard.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 118%;
+}
+
+#checkout #cardnumber,
+#checkout #cardholder,
+#checkout #cvc {
+  width: 100%;
+  background: none;
+  border: 1px solid var(--primary-color);
+  padding: 8px 19px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+#checkout #cardnumber:focus,
+#checkout #cardholder:focus,
+#checkout #cvc:focus {
+  border: 1px solid var(--secondary-color);
+}
+
+#checkout ::-webkit-input-placeholder {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: var(--decor-color);
+}
+
+#checkout #cardnumber::-webkit-input-placeholder {
+  font-size: 1em;
+}
+
+#checkout #left {
+  width: 41%;
+  border: 1px solid var(--primary-color);
+  border-radius: 50px;
+  overflow: hidden;
+  padding: 3px 5px;
+  float: left;
+}
+
+#checkout #left #month,
+#checkout #left #year {
+  background: none;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  float: left;
+  font-size: 0.8em;
+  letter-spacing: 3px;
+  color: var(--decor-color);
+}
+
+#checkout #left p {
+  float: left;
+  padding-top: 2px;
+  font-size: 1.2em;
+  color: var(--decor-color);
+  letter-spacing: 3px;
+}
+
+#checkout #cvc {
+  width: 48%;
+  float: left;
+  margin-left: 11%;
+}
+
+#checkout .btn {
+  background: var(--secondary-color);
+  border: none;
+  width: 100%;
+  padding: 12px 10px 10px 10px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+  color: #ECECEC;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#checkout .btn:hover {
+  background: #16A085;
+}
+@media (max-width:895px) {
+    #container {
+        width: 500px;
+        flex-direction: column;
+        height: 800px;
+    }
+    #info {
+        width: 100%;
+        height: 52%;
+    }
+    #payment{
+        width: 100%;
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        left: 6%;
+        transform: translateY(-100%);
+        }
+        #left{
+            position: relative;
+            left: 0;
+            bottom: -20px;
+            height: 35px;
+        }
+        .exDate{
+            position: relative;
+            left: -186px;
+        }
+        #checkout #cvc-label {
+            left: -92px;
+            position: relative;
+        }
+}
+@media (max-width: 690px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        top: 30px;
+    }
+    #container {
+        width: calc(100% - 80px); /* Subtract sidebar width from total width */
+        max-width: 300px; /* Set max-width for responsiveness */
+        flex-direction: column;
+        height: 650px;
+        margin-bottom: 50px;
+    }
+    #info {
+        width: 100%;
+        height: 32%;
+    }
+    #payment {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    #left {
+        position: absolute; /* Change to absolute positioning */
+        left:60px;
+        height: 55px;
+        top: 340px;
+    }
+
+    .exDate {
+        position: absolute; /* Change to absolute positioning */
+        left: 60px;
+        top: 320px;
+    }
+
+    #cvc{
+        position: absolute; /* Change to absolute positioning */
+        left:20px;
+        top: 418px;
+    }
+    #checkout #cvc-label {
+        position: absolute; /* Change to absolute positioning */
+        left: 60px;
+        top: 403px;
+    }
+    .btn{
+        position: relative;
+        top: 150px;
+    }
+}
+@media (max-width: 412px) {
+    #container {
+        width: calc(100% - 100px); 
+        margin-left: 70px;
+    }
+    #payment {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    #left {
+        position: absolute; /* Change to absolute positioning */
+        left:50px;
+        height: 55px;
+        top: 350px;
+    }
+
+    .exDate {
+        position: absolute; /* Change to absolute positioning */
+        left: 30px;
+        top: 337px;
+    }
+input{
+    position: relative;
+    left: 12px;
+}
+.b {
+  display: inline-block;
+  /* You can also use display: inline; if you prefer */
+}
+
+    #cvc{
+        position: absolute; /* Change to absolute positioning */
+        left:20px;
+        top: 428px;
+    }
+    #checkout #cvc-label {
+        position: absolute; /* Change to absolute positioning */
+        left: 40px;
+        top: 413px;
+    }
+    .btn{
+        position: relative;
+        top: 150px;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo soundButton fileLink" data-sound="clickSoundGroup3"><img src="images/logo/logo svg transparent.svg" style="width: 50px; border-radius: 50%;" alt=""></a>
+            <nav>
+                <i class="fas fa-bars " id="toggle-menu"></i>
+                <ul id="myList" class="">
+                    <li><a href="service.html" class="soundButton fileLink" data-sound="clickSoundGroup3">Services</a></li>
+                    <li><a href="community.html" class="soundButton fileLink" data-sound="clickSoundGroup3">community</a></li>
+                    <li><a href="#portfolio" >Portfolio</a></li>
+                    <li><a href="#pricing" >Pricing</a></li>
+                    <li><a href="#about" >About</a></li>
+                    <li><a href="#contact" >Contact</a></li>
+                </ul>
+                <div class="form">
+                    <i class="fa-solid fa-music soundButton" data-sound="clickSoundGroup4"> mach spaß</i>
+                </div>
+            </nav>
+        </div>
+    </header>
+<!--dust particel-->
+<div class="margin-body">
+<!-- ################################   START most important thing in this file   ################################ -->
+<div>
+<div class="starsec"></div>
+<div class="starthird"></div>
+<div class="starfourth"></div>
+<div class="starfifth"></div>
+</div>
+<!--  ################################   END most important thing in this file   ################################  -->
+<!--Dust particle end--->
+
+<div id="wrapper">
+<div id="container">
+
+<div id="info">
+    
+    <img id="product" src="http://enwaara.se/codepen/product.png"/>
+
+    <p>Standerd plans</p>
+    <p>ultimate</p>
+
+    <div id="price">
+
+    <h2>$10000</h2>
+
+    </div>
+</div>
+
+<div id="payment">
+
+    <form id="checkout">
+
+    <input class="card" id="visa" type="button" name="card" value="">
+    <input class="card" id="mastercard" type="button" name="card" value="">
+
+    <label class="b">Credit Card Number</label>
+    <input id="cardnumber" type=text pattern="[0-9]{13,16}" name="cardnumber" requierd="true" placeholder="0123-4567-8901-2345">
+
+    <label>Card Holder</label>
+    <input id="cardholder" type="text" name="name" requierd="true" maxlength="50" placeholder="Cardholder">
+
+    <label class="exDate">Expiration Date</label>
+    <label id="cvc-label">CVC/CVV</label>
+    <div id="left">
+        <select name="month" id="month" onchange="" size="1">
+            <option value="00">MM</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+    <p>/</p>
+        <select name="year" id="year" onchange="" size="1">
+            <option value="00">YY</option>
+            <option value="01">16</option>
+            <option value="02">17</option>
+            <option value="03">18</option>
+            <option value="04">19</option>
+            <option value="05">20</option>
+            <option value="06">21</option>
+            <option value="07">22</option>
+            <option value="08">23</option>
+            <option value="09">24</option>
+            <option value="10">25</option>
+        </select>
+    </div>
+
+
+    <input id="cvc" type="text" placeholder="Cvc/Cvv" maxlength="3" />
+
+    <input class="btn" type="button" name="purchase" value="Purchase">
+    </form>
+</div>
+
+</div>
+</div>
+
+
+<nav class="sidebar locked">
+    <div class="logo_items flex">
+    <span class="nav_image">
+        <img src="images/logo/bigger logo.png" alt="logo_img" />
+    </span>
+    <span class="logo_name">Digital vibe</span>
+    <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
+    <i class="bx bx-x" id="sidebar-close"></i>
+    </div>
+    <div class="menu_container">
+    <div class="menu_items">
+        <ul class="menu_item">
+        <div class="menu_title flex">
+            <span class="title">main</span>
+            <span class="line"></span>
+        </div>
+        <li class="item">
+            <a href="index.html" class="link flex">
+            <i class="bx bx-home-alt"></i>
+            <span>home</span>
+            </a>
+        </li>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class="bx bx-grid-alt"></i>
+            <span>All orders</span>
+            </a>
+        </li>
+        </ul>
+        <ul class="menu_item">
+        <div class="menu_title flex">
+            <span class="title">plans</span>
+            <span class="line"></span>
+        </div>
+        <li class="item">
+            <a href="#" class="link flex dropdown">
+                <i class="bx bxs-magic-wand"></i>
+                <span>Back to plans</span>
+                <i class='bx bx-chevron-down-circle arrow' style="transform: rotate(90deg);"></i>
+            </a>
+        </li>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class='bx bx-detail'></i>
+            <span>monitor progress</span>
+            </a>
+        </li>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class="bx bx-folder"></i>
+            <span>make recommendation <br><small>for your order</small></span>
+            </a>
+        </li>
+        </ul>
+        <ul class="menu_item">
+        <div class="menu_title flex">
+            <span class="title">Setting</span>
+            <span class="line"></span>
+        </div>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class="bx bx-flag"></i>
+            <span>reviews</span>
+            </a>
+        </li>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class="bx bx-award"></i>
+            <span>Award</span>
+            </a>
+        </li>
+        <li class="item">
+            <a href="#" class="link flex">
+            <i class="bx bx-cog"></i>
+            <span>Setting</span>
+            </a>
+        </li>
+        </ul>
+    </div>
+    <div class="sidebar_profile flex">
+        <span class="nav_image">
+        <img src="images/profile.jpg" alt="logo_img" />
+        </span>
+        <div class="data_text">
+        <span class="name">user user</span>
+        <span class="email">user@gmail.com</span>
+        </div>
+    </div>
+    </div>
+</nav>
+<!-- Navbar -->
+
+
+<button id="scrollTopBtn" onclick="scrollToTop()" class="soundButton" data-sound="clickSoundGroup1"><i class="fa-solid fa-jet-fighter-up"></i></button>
+
+
+<!-- sounds -->
+<audio id="clickSoundGroup1" src="sounds/mixkit-cool-interface-click-tone-2568.wav"></audio> 
+<audio id="clickSoundGroup2" src="sounds/mixkit-negative-tone-interface-tap-2569.wav"></audio>
+<audio id="clickSoundGroup3" src="sounds/mixkit-modern-technology-select-3124.wav"></audio>
+<audio id="clickSoundGroup4" src="sounds/mixkit-getting-ready-46.mp3"></audio>
+<!-- sounds -->
+
+
+
+<script src="js/pricing.js"></script>
+</body>
+</html>
