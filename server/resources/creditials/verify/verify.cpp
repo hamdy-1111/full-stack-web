@@ -34,13 +34,13 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
                 SQLite::Statement query_delete(*DataBaseManager::users, "DELETE FROM users_verify_temp WHERE uuid = ?");
                 query_delete.bind(1, uuid);
                 query_delete.exec();
-                return shared_ptr<http_response>(new string_response(to_string(json({{"error", "time-out"}}))));
+                return shared_ptr<http_response>(new string_response(to_string(json({{"error", "time-out"},{"verified", false}}))));
             }
 
             if (real_otp == otp) {
                 string new_key = add_new_user(uuid, key);
                 if (new_key.empty()) {
-                    string_response *res = new string_response(to_string(json({{"error", "something-wrong"}})));
+                    string_response *res = new string_response(to_string(json({{"error", "something-wrong"},{"verified", false}})));
                     res->with_header("Content-Type", "application/json");
                     return shared_ptr<http_response>(res);
                 }
@@ -53,7 +53,7 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
                 res->with_header("Content-Type", "application/json");
                 return shared_ptr<http_response>(res);
             } else {
-                string_response *res = new string_response(to_string(json({{"error", "otp-code-wrong"}})));
+                string_response *res = new string_response(to_string(json({{"error", "otp-code-wrong"}, {"verified", false}})));
                 res->with_header("Content-Type", "application/json");
                 return shared_ptr<http_response>(res);
             }
@@ -61,7 +61,7 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
-    return shared_ptr<http_response>(new string_response(json({{"error", "something-wrong"}}), 500));
+    return shared_ptr<http_response>(new string_response(to_string(json({{"error", "something-wrong"}, {"verified", false}})), 500));
 }
 
 string verify_resource::add_new_user(string uuid, string key) {
