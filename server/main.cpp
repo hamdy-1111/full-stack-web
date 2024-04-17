@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     ws.register_resource("/sign-up", &signup_rc);
     ws.register_resource("/verify-otp", &verify_rc);
 
-    std::cout << "Connect to https://localhost:3001" << std::endl; 
+    std::cout << "Connect to http://localhost:3001" << std::endl; 
     ws.start(true);
 
     DataBaseManager::FinalDatabases(); // clean up memory

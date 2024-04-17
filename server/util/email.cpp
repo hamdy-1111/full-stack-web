@@ -10,34 +10,20 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
     // this a lambda function like () => {} in javascript
     auto sendEmailTask = [&](const std::string &recipient, const std::string &otp) {
         try {
+            std::string emailHTML;
 
-            std::string html_before_otp;
-            std::string html_after_otp;
-
-            std::ifstream in;
-            in.open("email_template/email_before_otp.html");
-            std::stringstream html_stream_b;
-            html_stream_b << in.rdbuf();
-
-            html_before_otp = html_stream_b.str();
-
-            in.close();
-            in.clear();
-
-            in.open("email_template/email_after_otp.html");
+            emailHTML += "<p>Here is your OTP Code.</p>";
+            emailHTML += "<p>Don't Share it with anybody</p>";
+            emailHTML += "<strong style=\"font-size: 4em;\">" + otp + "</strong>";
+            emailHTML += "<br>";
             
-            std::stringstream html_stream_a;
-            html_stream_a << in.rdbuf();
-            html_after_otp = html_stream_a.str();
-            
-            std::string email = html_before_otp + otp + html_after_otp; // construct full email
             mailio::message msg;
             msg.from(mailio::mail_address("", "digitalvibeoriginal@gmail.com"));
             msg.add_recipient(mailio::mail_address("", recipient));
 
             msg.subject("OTP VERIFICATION CODE");
             msg.add_header("Content-Type", "text/html; charset=UTF-8");
-            msg.content(email);
+            msg.content(emailHTML);
 
             mailio::dialog_ssl::ssl_options_t ssl_options;
             ssl_options.method = boost::asio::ssl::context::tls_client;
