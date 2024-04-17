@@ -89,6 +89,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string otp_code = generate_otp_code();
     // generate random key
     string key = random_string(40);
+/*   */
 
     std::thread([&] {
         try {

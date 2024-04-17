@@ -29,6 +29,7 @@ server/resources/database.cpp
 server/resources/creditials/login/login.cpp
 server/resources/creditials/signup/signup.cpp
 server/resources/creditials/verify/verify.cpp
+server/util/email.cpp
 server/main.cpp)
 
 target_include_directories(${EXE_NAME} PRIVATE server/ server/resources)
@@ -41,3 +42,4 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${EXE_NAME} PRIVATE httpserver SQLiteCpp OpenSSL::Crypto mailio)
 endif() 
+# Instaling cmake from msys2 is better because you can just use libraries from msys2
