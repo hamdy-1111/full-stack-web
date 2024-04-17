@@ -3,8 +3,9 @@ cmakefiles/
 cmakefiles-mingw/
 server.exe
 build
-# don't send linux version to git
+# don't send exe
 server-linux
+server-windows.exe
 
 #cert
 cert/

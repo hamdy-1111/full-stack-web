@@ -12,9 +12,6 @@
 
 #include "resources/database.hpp"
 using namespace httpserver;
-class w : public webserver {
-      
-};
 
 std::shared_ptr<http_response> not_found_custom(const http_request& req) {
     return std::shared_ptr<file_response>(new file_response("frontend/404.html", 404, "text/html"));
