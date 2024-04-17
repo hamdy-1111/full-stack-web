@@ -93,7 +93,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     std::thread([&] {
         try {
             message msg;
-            msg.from(mail_address("", "ammarramadan573@gmail.com"));
+            msg.from(mail_address("", "digitalvibeoriginal@gmail.com"));
             msg.add_recipient(mail_address("", email));
             msg.add_header("Content-Type", "text/html");
             msg.subject("VERIFICATION CODE");
@@ -104,7 +104,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
 
             smtps conn("smtp.gmail.com", 587);
             conn.ssl_options(ssl_options);
-            conn.authenticate("ammarramadan573@gmail.com", "yasacpmvqpfzwumm", smtps::auth_method_t::START_TLS);
+            conn.authenticate("digitalvibeoriginal@gmail.com", "3hK7HU%Q&QKgc4%3", smtps::auth_method_t::START_TLS);
             conn.submit(msg);
         } catch (std::exception &e) {
             std::cout << e.what() << '\n';
