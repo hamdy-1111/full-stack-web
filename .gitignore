@@ -2,7 +2,7 @@
 cmakefiles/
 cmakefiles-mingw/
 server.exe
-
+build
 # don't send linux version to git
 server-linux
 

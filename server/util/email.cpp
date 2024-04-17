@@ -10,15 +10,3 @@ std::string constructHTMLEmail(const std::string &recipient, const std::string &
     std::string htmlEmail = ss.str();
     return htmlEmail;
 }
-
-/*
-ofstream stands for output file stream
-it just write files
-ok
-
-ifstream reads  input file stream
-ok
-complete coding
-I forgot how to read files I  need auto completetion
-yeah like u 
-  */
