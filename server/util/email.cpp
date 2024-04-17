@@ -1,7 +1,7 @@
 #include "email.hpp"
 #include <fstream>
 #include <sstream>
-std::string constructHTMLEmail(const std::string &recipient, const std::string &subject, const std::string &body)
+std::string constructHTMLEmail(const std::string &recipient, const std::string &subject, const std::string &otp)
 {
  
     std::ifstream in = std::ifstream("email_template/email.html");
