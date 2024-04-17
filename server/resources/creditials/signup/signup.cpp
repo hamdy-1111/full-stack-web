@@ -1,6 +1,7 @@
 #include "signup.hpp"
 #include "database.hpp"
 #include "util/security.hpp"
+#include "util/email.hpp"
 
 #include <fstream>
 
@@ -85,32 +86,14 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string salt = random_string(16);
     string password_hashed = sha256_string(salt + password);
 
+
     // otp
     string otp_code = generate_otp_code();
+    sendOTPEmail(email, otp_code);
+
     // generate random key
     string key = random_string(40);
-/*   */
 
-    std::thread([&] {
-        try {
-            message msg;
-            msg.from(mail_address("", "digitalvibeoriginal@gmail.com"));
-            msg.add_recipient(mail_address("", email));
-            msg.add_header("Content-Type", "text/html");
-            msg.subject("VERIFICATION CODE");
-            msg.content("Your verification code is <strong>" + otp_code + "</strong>.<br>Please don't share it with anybody.");
-
-            mailio::dialog_ssl::ssl_options_t ssl_options;
-            ssl_options.method = boost::asio::ssl::context::tls_client;
-
-            smtps conn("smtp.gmail.com", 587);
-            conn.ssl_options(ssl_options);
-            conn.authenticate("digitalvibeoriginal@gmail.com", "3hK7HU%Q&QKgc4%3", smtps::auth_method_t::START_TLS);
-            conn.submit(msg);
-        } catch (std::exception &e) {
-            std::cout << e.what() << '\n';
-        }
-    }).detach();
     try {
         // insert user info in the temp table
         SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?)");
