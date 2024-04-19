@@ -1,6 +1,8 @@
 #!/bin/python3
 import sys
 import subprocess as sp
+import platform as pl
+THIS_OS = pl.system()
 
 # Check if build is for frontend
 if len(sys.argv) == 2 and sys.argv[1] == "frontend":
@@ -9,7 +11,7 @@ if len(sys.argv) == 2 and sys.argv[1] == "frontend":
     print("BUILDING FRONTEND DONE")
     exit(0)
 
-OS = ""
+TARGET_OS = ""
 MODE = ""
 
 def exitWithMessage():
@@ -19,7 +21,7 @@ def exitWithMessage():
 
 if len(sys.argv) <= 1 or sys.argv[1] not in ["windows", "linux"]:
     exitWithMessage()
-OS = sys.argv[1]
+TARGET_OS = sys.argv[1]
 if len(sys.argv) >= 3:
     if sys.argv[2] not in ["release", "debug"] or len(sys.argv) > 3:
         exitWithMessage()
@@ -28,11 +30,19 @@ if len(sys.argv) >= 3:
 
 cmake_config_cl = ["cmake" ,"-G", "Ninja","-S", ".", "-B"] # all builds starts with these args 'cmake' is the command
 cmake_build_cl = ["cmake" , "--build"]
-if OS == "windows":
-    cmake_config_cl[0] = "x86_64-w64-mingw32-cmake"
-    cmake_config_cl.append("cmakefiles-mingw/")
-    cmake_build_cl.append("cmakefiles-mingw/")
-elif OS == "linux":
+if TARGET_OS == "windows":
+    if THIS_OS == "Linux":
+        cmake_config_cl[0] = "x86_64-w64-mingw32-cmake"
+        cmake_config_cl.append("cmakefiles-mingw/")
+        cmake_build_cl.append("cmakefiles-mingw/")
+    elif THIS_OS == "Windows":
+        cmake_config_cl[0] = 'cmake'
+        cmake_config_cl.append('build/')
+        cmake_build_cl.append('build/')
+elif TARGET_OS == "linux":
+    if THIS_OS == "Windows":
+        print("Cannot build for linux on windows exiting.")
+        exit(1)
     cmake_config_cl.append("cmakefiles/")
     cmake_build_cl.append("cmakefiles/")
     # my cmake login will build for linux by default
