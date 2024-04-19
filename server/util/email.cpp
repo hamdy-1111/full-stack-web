@@ -1,24 +1,42 @@
 #include "email.hpp"
+
 #include <fstream>
+#include <iostream>
+#include <mailio/message.hpp>
+#include <mailio/smtp.hpp>
 #include <sstream>
-std::string constructHTMLEmail(const std::string &recipient, const std::string &subject, const std::string &body)
-{
- 
-    std::ifstream in = std::ifstream("email_template/email.html");
-    std::stringstream ss;
-    ss << in.rdbuf();
-    std::string htmlEmail = ss.str();
-    return htmlEmail;
+
+void sendOTPEmail(const std::string &recipient, const std::string &otp) {
+    // this a lambda function like () => {} in javascript
+    auto sendEmailTask = [&](const std::string &recipient, const std::string &otp) {
+        try {
+            std::string emailHTML;
+
+            emailHTML += "<p>Here is your OTP Code.</p>";
+            emailHTML += "<p>Don't Share it with anybody</p>";
+            emailHTML += "<strong style=\"font-size: 4em;\">" + otp + "</strong>";
+            emailHTML += "<br>";
+            
+            mailio::message msg;
+            msg.from(mailio::mail_address("", "digitalvibeoriginal@gmail.com"));
+            msg.add_recipient(mailio::mail_address("", recipient));
+
+            msg.subject("OTP VERIFICATION CODE");
+            msg.add_header("Content-Type", "text/html; charset=UTF-8");
+            msg.content(emailHTML);
+
+            mailio::dialog_ssl::ssl_options_t ssl_options;
+            ssl_options.method = boost::asio::ssl::context::tls_client;
+
+            mailio::smtps conn("smtp-relay.brevo.com", 587);
+            conn.ssl_options(ssl_options);
+            conn.authenticate("digitalvibeoriginal@gmail.com", "23FU0kLRCNmbQz4s", mailio::smtps::auth_method_t::START_TLS);
+            conn.submit(msg);
+
+        } catch (const std::exception &e) {
+            std::cout << e.what() << '\n';
+        }
+    };
+    // start lambda function in a new detached thread
+    std::thread(sendEmailTask, recipient, otp).detach();
 }
-
-/*
-ofstream stands for output file stream
-it just write files
-ok
-
-ifstream reads  input file stream
-ok
-complete coding
-I forgot how to read files I  need auto completetion
-yeah like u 
-  */

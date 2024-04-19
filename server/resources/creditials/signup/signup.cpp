@@ -1,6 +1,7 @@
 #include "signup.hpp"
 #include "database.hpp"
 #include "util/security.hpp"
+#include "util/email.hpp"
 
 #include <fstream>
 
@@ -91,14 +92,24 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req)
     string salt = random_string(16);
     string password_hashed = sha256_string(salt + password);
 
+
     // otp
     string otp_code = generate_otp_code();
+<<<<<<< HEAD
 
     // send OTP email
     send_email(email, otp_code); // This line sends the OTP email
 
     try
     {
+=======
+    sendOTPEmail(email, otp_code);
+
+    // generate random key
+    string key = random_string(40);
+
+    try {
+>>>>>>> baba3a63862ec842a93c31034928dd34d94a9051
         // insert user info in the temp table
         SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?)");
         SQLite::bind(query, uuid, username, email, salt, password_hashed, photo_state, key, otp_code, time(nullptr));

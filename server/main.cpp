@@ -12,9 +12,6 @@
 
 #include "resources/database.hpp"
 using namespace httpserver;
-class w : public webserver {
-      
-};
 
 std::shared_ptr<http_response> not_found_custom(const http_request& req) {
     return std::shared_ptr<file_response>(new file_response("frontend/404.html", 404, "text/html"));
@@ -42,7 +39,7 @@ int main(int argc, char const *argv[])
     ws.register_resource("/sign-up", &signup_rc);
     ws.register_resource("/verify-otp", &verify_rc);
 
-    std::cout << "Connect to https://localhost:3001" << std::endl; 
+    std::cout << "Connect to http://localhost:3001" << std::endl; 
     ws.start(true);
 
     DataBaseManager::FinalDatabases(); // clean up memory
