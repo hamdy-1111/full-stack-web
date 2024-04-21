@@ -9,7 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 find_package(OpenSSL REQUIRED)
 find_package(SQLiteCpp REQUIRED)
 find_library(libhttpserver libhttpserver)
-find_package(Boost COMPONENTS system filesystem date_time regex unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS system filesystem date_time regex unit_test_framework url REQUIRED)
 find_package(mailio REQUIRED)
 
 add_subdirectory(server/external/json)
