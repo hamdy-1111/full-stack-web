@@ -2,7 +2,9 @@
 cmakefiles/
 cmakefiles-mingw/
 server.exe
-build
+build/
+
+node_modules/
 # don't send exe
 server-linux
 server-windows.exe
