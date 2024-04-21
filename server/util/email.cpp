@@ -75,9 +75,11 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
                                           ""
                                           "</body>"
                                           "</html>";
-
+/*I will have dinner 
+keep trying with brevo you might find a security option
+Switching to SSL failed is related to the Email provider ?! */
             mailio::message msg;
-            msg.from(mailio::mail_address("", "digitalvibeoriginal@gmail.com"));
+            msg.from(mailio::mail_address("", "DigitalVibe@gmail.com"));
             msg.add_recipient(mailio::mail_address("", recipient));
 
             msg.content_type(mailio::message::media_type_t::MULTIPART, "related");
@@ -111,9 +113,9 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
             mailio::dialog_ssl::ssl_options_t ssl_options;
             ssl_options.method = boost::asio::ssl::context::tls_client;
 
-            mailio::smtps conn("smtp-relay.brevo.com", 587);
+            mailio::smtps conn("smtp.elasticemail.com", 2525);
             conn.ssl_options(ssl_options);
-            conn.authenticate("digitalvibeoriginal@gmail.com", "23FU0kLRCNmbQz4s", mailio::smtps::auth_method_t::START_TLS);
+            conn.authenticate("DigitalVibe@gmail.com", "8B2CFEC1D050291B63203C852B8595BDC6D0", mailio::smtps::auth_method_t::START_TLS);
             conn.submit(msg);
     
 
