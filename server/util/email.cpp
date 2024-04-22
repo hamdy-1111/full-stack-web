@@ -61,7 +61,7 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
 "</html>";
 
             mailio::message msg;
-            msg.from(mailio::mail_address("", "digitalvibeoriginal@gmail.com"));
+            msg.from(mailio::mail_address("", "DigitalVibe@gmail.com"));
             msg.add_recipient(mailio::mail_address("", recipient));
 
             msg.content_type(mailio::message::media_type_t::MULTIPART, "related");
@@ -94,9 +94,9 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
             mailio::dialog_ssl::ssl_options_t ssl_options;
             ssl_options.method = boost::asio::ssl::context::tls_client;
 
-            mailio::smtps conn("smtp-relay.brevo.com", 587);
+            mailio::smtps conn("smtp.elasticemail.com", 2525);
             conn.ssl_options(ssl_options);
-            conn.authenticate("digitalvibeoriginal@gmail.com", "23FU0kLRCNmbQz4s", mailio::smtps::auth_method_t::START_TLS);
+            conn.authenticate("DigitalVibe@gmail.com", "E17F67D8279E9DF26E5F9ED177E88D40A634", mailio::smtps::auth_method_t::START_TLS);
             conn.submit(msg);
 
         } catch (const std::exception &e) {
