@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html> 
 <html lang="en"> 
 <head> 
@@ -52,35 +53,51 @@
         <div style="display: flex;flex-direction: column; gap: 15px;">
             <a href="" style="color: #070F2B; text-decoration: none;"><img src="images/icons/linkedin.png" alt="linkedin" style="width: 25px;"></a>
             <a href="" style="color: #070F2B; text-decoration: none;"><img src="images/icons/github.png" alt="github" style="width: 25px;"></a>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email OTP Verification</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+
+    <div class="container"
+        style="max-width: 600px; margin: 50px auto; background-color: #050A30; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <img src="cid:email_cover.png" alt=""
+            style="display: block; margin: 0 auto; height: calc(100% / 3); width: 100%; border-radius: 10px; margin-bottom: 20px;">
+        <p class="user-name" style="color: #00bcd4;">Dear User</p>
+        <p style="margin-bottom: 20px; color: #607D8B;">Please use this OTP to verify that this is your email to sign
+            up.</p>
+        <p style="margin-bottom: 20px; color: #607D8B;">If you did not request this verification, you can safely ignore
+            this email.</p>
+        <p style="color:white">Your OTP is:</p>
+        <p class="otp-code" id="otpCode"
+            style="font-size: 24px; font-weight: bold; color: #0795a3; text-align: center;">123456</p>
+        <!-- Replace with actual OTP -->
+        <hr color="#607D8B" height="1px" width="95%" align="center">
+        <div class="footer">
+            <div style="display: flex;flex-direction: column; gap: 15px;">
+            </div>
+            <div width="100%">
+                <p align="center" style="color:#bababa">Best Regards,</p>
+                <p align="center" style="color:#bababa">Digital vibes</p>
+                <p align="center" style="color:#bababa">All rights reserved. © 2024 Digital vibes.</p>
+            </div>
+            <div style="display: flex;flex-direction: column; gap: 15px;">
+            </div>
+>>>>>>> c70d98d0a43d1bbce523b6fe3587a3b55b9c01ee
         </div>
     </div>
-</div>
-        <p style="text-align: center; margin-bottom: 20px; color: #607D8B;">
-            <a href="#" style="color: #070F2B; text-decoration: none;" onmouseover="this.style.textDecoration='underline'; this.style.color='#7EC8E3';" onmouseout="this.style.textDecoration='none'; this.style.color='#070F2B';">Privacy Policy</a> | 
-            <a href="#" style="color: #070F2B; text-decoration: none;" onmouseover="this.style.textDecoration='underline'; this.style.color='#7EC8E3';" onmouseout="this.style.textDecoration='none'; this.style.color='#070F2B';">Terms of Service</a> | 
-            <a href="#" style="color: #070F2B; text-decoration: none;" onmouseover="this.style.textDecoration='underline'; this.style.color='#7EC8E3';" onmouseout="this.style.textDecoration='none'; this.style.color='#070F2B';">Unsubscribe</a><br>
-            <small>This email was sent automatically. Please do not reply to this email.</small>
-        </p>
-<script>
-    function copyOTP() {
-        var otpCode = document.getElementById("otpCode");
-        var range = document.createRange();
-        range.selectNode(otpCode);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand("copy");
-        window.getSelection().removeAllRanges();
-        var copiedMessage = document.querySelector(".copied");
-        copiedMessage.style.display = "flex"; // Show copied message
-        setTimeout(function() {
-            copiedMessage.classList.add('blur-effect'); // Add blur effect
-        }, 1000); // Delay blur effect by 1.5 seconds
-        setTimeout(function() {
-            copiedMessage.style.display = "none"; // Hide message after 2 seconds
-            copiedMessage.classList.remove('blur-effect'); // Remove blur effect
-        }, 1500);
-    }
-</script>
-
+    <p style="text-align: center;">
+        <a href="#" style="color: #070F2B; text-decoration: none;">Privacy Policy</a> |
+        <a href="#" style="color: #070F2B; text-decoration: none;">Terms of Service</a> |
+        <a href="#" style="color: #070F2B; text-decoration: none;">Unsubscribe</a><br>
+        <small>This email was sent automatically. Please do not reply to this email.</small>
+    </p>
 </body>
+
 </html>
