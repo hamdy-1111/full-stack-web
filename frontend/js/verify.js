@@ -109,14 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
 const countdownElement = document.getElementById('countdown');
 const resendButton = document.getElementById('resendButton');
 
-let secondsLeft = 180; // 3 minutes in seconds
+let secondsLeft = 45; // 3 minutes in seconds
 
 function updateCountdown() {
     const minutes = Math.floor(secondsLeft / 60);
     const seconds = secondsLeft % 60;
     countdownElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
     
-    if (secondsLeft <= 59) {
+    if (secondsLeft <= 16) {
         countdownElement.style.color = 'red'; // Change color to red when 2:30 or less
     }
     
