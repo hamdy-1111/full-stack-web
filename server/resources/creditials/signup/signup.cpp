@@ -19,6 +19,8 @@
 using namespace mailio;
 using namespace nlohmann;
 
+#define MAXIMUM_USERNAME_LENGTH 25
+
 shared_ptr<http_response> signup_resource::render_POST(const http_request &req) {
 
     // get user info
@@ -37,19 +39,21 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
         return shared_ptr<http_response>(res);
     }
     // check if username is too long
-    if (username.size() > 25) {
-        string_response *res = new string_response(to_string(json({{"error", "username-too-long"}})));
+    if (username.size() > MAXIMUM_USERNAME_LENGTH) {
+        string_response *res = new string_response(to_string(json({{"error", "username-too-long"}, {"max", MAXIMUM_USERNAME_LENGTH}})));
         res->with_header("Content-Type", "application/json");
         return shared_ptr<http_response>(res);
     }
     // check if username exists
     if (username_exists(username)) {
+        std::cout << "Bad request: username already exists and verified\n";
         string_response *res = new string_response(to_string(json({{"error", "user-exists"}})));
         res->with_header("Content-Type", "application/json");
         return shared_ptr<http_response>(res);
     }
 
     if (email_exists(email)) {
+        std::cout << "Bad request: email already exists and verified\n";
         string_response *res = new string_response(to_string(json({{"error", "email-exists"}})));
         res->with_header("Content-Type", "application/json");
         return shared_ptr<http_response>(res);
@@ -59,15 +63,13 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     if (username_exists(username, true)) {
         SQLite::Statement query_delete(*DataBaseManager::users, "DELETE FROM users_verify_temp WHERE username = ?");
         query_delete.bind(1, username);
-        while (query_delete.executeStep())
-            ;
+        query_delete.exec();
     }
 
     if (email_exists(email, true)) {
         SQLite::Statement query_delete(*DataBaseManager::users, "DELETE FROM users_verify_temp WHERE email = ?");
         query_delete.bind(1, email);
-        while (query_delete.executeStep())
-            ;
+        query_delete.exec();
     }
     // generate uuid;
     string uuid = generate_uuid_v4();

@@ -224,6 +224,19 @@ fetch('/sign-up', {
     }
 })
 .then(data => {
+    if(data?.error) {
+        let error = data.error;
+        switch( error ) {
+            case "user-exists":
+                throw new Error("Username already taken try a diffrent one");
+            case "email-exists":
+                throw new Error("Email is already taken try a diffrent one");
+            case "username-too-long":
+                throw new Error(`username is too long. maximum username length is ${data.max} characters`);
+            case "invalid-parameters":
+                throw new Error("Bad request sent from client");
+        }
+    }
     // Check if the response contains the required data
     if (data && data.uuid && data.key) {
         // Set cookies for uuid and key
@@ -236,8 +249,6 @@ fetch('/sign-up', {
     }
 })
 .catch(error => {
-    console.error('Error signing up: '+ error);
-    // Show error message to the user
-    showError('Failed to sign up. Please try again later.', 'Signup Error');
+    showError(error, 'Signup Error');
 });
 });
