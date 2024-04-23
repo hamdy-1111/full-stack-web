@@ -21,14 +21,6 @@ body{
     background-size: 300vh;
     background-repeat: no-repeat;
 }
-#mainCoantiner
-{
-background-image:url("https://1.bp.blogspot.com/-Fo3iRt97ZXY/XvSG4EMwi0I/AAAAAAAAVEo/mrApRTcVVRk1m-fX9K-ffNwRUXlHUocdwCLcBGAsYHQ/s1600/h.jpg");
-background-color: #181828;
-height:100vh;
-width:100%;
-padding-bottom: 50px;
-}
 
 /*  ################################   START most important thing in this file   ################################  */
 .starsec{
@@ -308,6 +300,12 @@ header nav .form i {
     transform: translate(-50%,-50%);
     background: rgba(0, 0, 0, 0.286);
     border-radius: 15px;
+    border: 1px solid #BA68C8;
+    transition: .5s;
+}
+.wraper:hover{
+    box-shadow: 0 0 25px var(--main-color);
+    
 }
 /* Apply styles to the form elements inside the wrapper */
 .wraper form {
@@ -335,14 +333,13 @@ header nav .form i {
 .wraper span {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
     background: rgba(0, 0, 0, 0.245);
-    border: none;
     transition: .5s;
     width: 270px;
     color: #bcb9b9;
+    border: 1px solid #ba68c82b;
 }
 @media(max-width:684px){
     .wraper input[type="text"],
