@@ -61,7 +61,7 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
-    return shared_ptr<http_response>(new string_response(to_string(json({{"error", "something-wrong"}, {"verified", false}})), 500));
+    return shared_ptr<http_response>(new string_response(to_string(json({{"error", "something-wrong"}, {"verified", false}}))));
 }
 
 string verify_resource::add_new_user(string uuid, string key) {

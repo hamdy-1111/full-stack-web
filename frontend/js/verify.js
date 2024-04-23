@@ -199,15 +199,26 @@ async function verifyOTP(otp) {
         }
 
         const data = await response.json(); // Assuming backend returns JSON response
-        
+        if(data?.error) {
+            let error = data.error;
+            switch( error ) {
+                case "otp-code-wrong":
+                    throw new Error("You entered wrong OTP code.");
+                case "time-out":
+                    throw new Error("You 're too late");
+                case "something-wrong":
+                    throw new Error("Something went wrong");
+            }
+        }
+
         // Handle response from backend
-        console.log("Verification case sent to backend:", data);
+        console.log("response:", data);
         // Redirect user to success page or perform other actions
         window.location.href = 'profile.html';
     } catch (error) {
         console.error("Error:", error);
         // Display error message to the user
-        showError("There was a problem processing your verification. Please try again later.");
+        showError(error);
     }
 }
 
