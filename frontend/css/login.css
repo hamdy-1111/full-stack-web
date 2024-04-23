@@ -371,22 +371,22 @@ header nav .form i {
     border-radius: 50%;
 }
 .wraper input::-webkit-input-placeholder{
-    color: #da00ff;
+    color: var(--text-color);
 }
 .wraper input::-moz-placeholder{
-    color: #da00ff;
+    color: var(--text-color);
 }
 .wraper input:-ms-input-placeholder{
-    color: #da00ff;
+    color: var(--text-color);
 }
 .wraper input::-ms-input-placeholder{
-    color: #da00ff;
+    color: var(--text-color);
 }
 .wraper input::-webkit-input-placeholder{
-    color: #da00ff75;
+    color: var(--text-color);
 }
 .wraper input::placeholder{
-    color: #da00ff75;
+    color: var(--text-color);
 }
 .wraper input:hover ,.wraper input:focus{
     border: none;
