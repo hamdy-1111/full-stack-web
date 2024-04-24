@@ -208,6 +208,8 @@ async function verifyOTP(otp) {
                     throw new Error("You 're too late");
                 case "something-wrong":
                     throw new Error("Something went wrong");
+                case "too-many-trials":
+                    throw new Error("Too many trials resend the code and try again");
             }
         }
 

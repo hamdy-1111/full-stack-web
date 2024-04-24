@@ -23,17 +23,25 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
         std::cout << e.what() << '\n';
     }
     try {
-        SQLite::Statement query(*DataBaseManager::users, "SELECT otp_code, time_unix FROM users_verify_temp WHERE uuid = ? AND key = ?");
+        SQLite::Statement query(*DataBaseManager::users, "SELECT otp_code, time_unix, trials FROM users_verify_temp WHERE uuid = ? AND key = ?");
         SQLite::bind(query, uuid, key);
         while (query.executeStep()) {
             string real_otp = query.getColumn(0);
             int time_unix = query.getColumn(1);
+            int trials = query.getColumn(2);
+
+            if( trials <= 0 ) {
+                delete_user(uuid, key);
+                json res = {
+                    {"error", "too-many-trials"},
+                    {"verified", false}
+                };
+                return shared_ptr<http_response>(new string_response(to_string(res), 200, "application/json"));
+            }
 
             // if user is late delete
             if (time(nullptr) - time_unix > 45) {
-                SQLite::Statement query_delete(*DataBaseManager::users, "DELETE FROM users_verify_temp WHERE uuid = ?");
-                query_delete.bind(1, uuid);
-                query_delete.exec();
+                delete_user(uuid, key);
                 return shared_ptr<http_response>(new string_response(to_string(json({{"error", "time-out"},{"verified", false}}))));
             }
 
@@ -53,9 +61,14 @@ shared_ptr<http_response> verify_resource::render_POST(const http_request &req) 
                 res->with_header("Content-Type", "application/json");
                 return shared_ptr<http_response>(res);
             } else {
-                string_response *res = new string_response(to_string(json({{"error", "otp-code-wrong"}, {"verified", false}})));
-                res->with_header("Content-Type", "application/json");
-                return shared_ptr<http_response>(res);
+                SQLite::Statement query_dec(*DataBaseManager::users, "UPDATE users_verify_temp SET trials = trials - 1 WHERE uuid = ? AND key = ?");
+                SQLite::bind(query_dec, uuid, key);
+                if( query_dec.exec() ) {
+                    string_response *res = new string_response(to_string(json({{"error", "otp-code-wrong"}, {"verified", false}})));
+                    res->with_header("Content-Type", "application/json");
+                    return shared_ptr<http_response>(res);
+                }
+
             }
         }
     } catch (std::exception &e) {
@@ -86,4 +99,11 @@ string verify_resource::add_new_user(string uuid, string key) {
         std::cerr << e.what() << '\n';
     }
     return "";
+}
+
+void verify_resource::delete_user(const string &uuid, const string &key) {
+    SQLite::Statement query_delete(*DataBaseManager::users, "DELETE FROM users_verify_temp WHERE uuid = ? AND key = ?");
+    query_delete.bind(1, uuid);
+    query_delete.bind(2, key);
+    query_delete.exec();
 }
