@@ -20,7 +20,7 @@ using namespace mailio;
 using namespace nlohmann;
 
 #define MAXIMUM_USERNAME_LENGTH 25
-
+#define MAX_TRIALS 5
 shared_ptr<http_response> signup_resource::render_POST(const http_request &req) {
 
     // get user info
@@ -98,8 +98,8 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
 
     try {
         // insert user info in the temp table
-        SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ?)");
-        SQLite::bind(query, uuid, username, email, salt, password_hashed, photo_state, key, otp_code, time(nullptr));
+        SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix], [trials]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
+        SQLite::bind(query, uuid, username, email, salt, password_hashed, photo_state, key, otp_code, time(nullptr), MAX_TRIALS);
         query.exec();
 
         json res = {
