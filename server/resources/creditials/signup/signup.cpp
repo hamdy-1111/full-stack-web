@@ -98,8 +98,8 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
 
     try {
         // insert user info in the temp table
-        SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix], [trials]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
-        SQLite::bind(query, uuid, username, email, salt, password_hashed, photo_state, key, otp_code, time(nullptr), MAX_TRIALS);
+        SQLite::Statement query(*DataBaseManager::users, "INSERT INTO users_verify_temp ([uuid], [username], [email], [salt], [password], [photo_state], [key], [otp_code] , [time_unix], [trials]) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , strftime('%s', 'now') , ? )");
+        SQLite::bind(query, uuid, username, email, salt, password_hashed, photo_state, key, otp_code, MAX_TRIALS);
         query.exec();
 
         json res = {

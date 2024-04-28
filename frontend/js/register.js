@@ -1,7 +1,7 @@
 // Function to show error message with SweetAlert
-function showError(message, title) {
+function showDialog(type ,message, title) {
     Swal.fire({
-        icon: 'info',
+        icon: type,
         title: title,
         text: message,
         customClass: {
@@ -182,7 +182,7 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     // Check if the checkbox is checked
     if (!document.getElementById("invalidCheck3").checked) {
         // Show the error message
-        showError("You must agree to the terms and conditions.", "Agreement Required");
+        showDialog("error" ,"You must agree to the terms and conditions.", "Agreement Required");
         // Focus on the checkbox for user attention
         document.getElementById("invalidCheck3").focus();
         return; // Stop further execution
@@ -192,7 +192,7 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm_password");
     if (password !== confirmPassword) {
-        showError("Passwords do not match.", "Password Mismatch");
+        showDialog("error" ,"Passwords do not match.", "Password Mismatch");
         // Focus on the password field for user attention
         document.getElementById("signupConfirmPassword").focus();
         return; // Stop further execution
@@ -220,21 +220,21 @@ fetch('/sign-up', {
         return response.json();
     } else {
         // Handle error response
-        throw new Error('Failed to sign up');
+        throw 'Failed to sign up';
     }
 })
 .then(data => {
-    if(data?.error) {
+    if(data?.error && data?.error != "no-error") {
         let error = data.error;
         switch( error ) {
             case "user-exists":
-                throw new Error("Username already taken try a diffrent one");
+                throw "Username already taken try a diffrent one";
             case "email-exists":
-                throw new Error("Email is already taken try a diffrent one");
+                throw "Email is already taken try a diffrent one";
             case "username-too-long":
-                throw new Error(`username is too long. maximum username length is ${data.max} characters`);
+                throw `username is too long. maximum username length is ${data.max} characters`;
             case "invalid-parameters":
-                throw new Error("Bad request sent from client");
+                throw "Bad request sent from client";
         }
     }
     // Check if the response contains the required data
@@ -245,10 +245,10 @@ fetch('/sign-up', {
         // Redirect user to verification page
         window.location.href = 'verify.html';
     } else {
-        throw new Error('UUID and key not received');
+        throw 'UUID and key not received';
     }
 })
 .catch(error => {
-    showError(error, 'Signup Error');
+    showDialog('error' ,error, 'Signup Error');
 });
 });
