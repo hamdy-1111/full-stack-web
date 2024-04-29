@@ -179,6 +179,8 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     // Get form data
     const formData = new FormData(this);
 
+        // Get the selected photo file
+    const userPhoto = document.getElementById('photo').files[0];
     // Check if the checkbox is checked
     if (!document.getElementById("invalidCheck3").checked) {
         // Show the error message
@@ -198,12 +200,19 @@ document.getElementById("signup-form").addEventListener("submit", function (even
         return; // Stop further execution
     }
 
+    let photoFile;
+        if (userPhoto !=''){
+        photoFile = userPhoto
+        }else{
+        photoFile = '0'
+    }
+
     // Construct the body of the HTTP request
     const body = {
         email: formData.get('email'),
         username: formData.get('username'),
         password: formData.get('password'),
-        photo: "0"
+        photo: photoFile
     };
 
 // Make an HTTP POST request to the backend
