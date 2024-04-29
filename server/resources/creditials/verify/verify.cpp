@@ -136,15 +136,15 @@ string verify_resource::add_new_user(string uuid, string key) {
 
         while (query.executeStep()) {
             string username = query.getColumn(0);
-            string email    = query.getColumn(1);
-            string salt     = query.getColumn(2);
+            string email = query.getColumn(1);
+            string salt = query.getColumn(2);
             string password = query.getColumn(3);
             int photo_state = query.getColumn(4);
 
             SQLite::Statement query_add(*DataBaseManager::users, "INSERT INTO users ([uuid], [username], [email], [salt], [password], [key], [photo_state]) VALUES ( ? , ? , ? , ? , ? , ? , ? )");
             SQLite::bind(query_add, uuid, username, email, salt, password, new_key, photo_state);
             query_add.exec();
-            std::rename((uuid+"-temp").c_str(), uuid.c_str());
+            std::rename((PHOTO_PREFIX + uuid + "-temp").c_str(), (PHOTO_PREFIX + uuid).c_str());
             return new_key;
         }
     } catch (const std::exception &e) {

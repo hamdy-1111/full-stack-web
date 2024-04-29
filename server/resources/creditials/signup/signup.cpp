@@ -81,7 +81,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
         photo_state = 0;
     } else {
         photo_state = 1;
-        std::ofstream("database/photos/" + uuid + "-temp") << photo;
+        std::ofstream(PHOTO_PREFIX + uuid + "-temp") << photo;
     }
 
     // generate salt and hash password
