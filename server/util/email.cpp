@@ -100,7 +100,7 @@ void sendOTPEmail(const std::string &recipient, const std::string &otp) {
             conn.submit(msg);
 
         } catch (const std::exception &e) {
-            std::cout << e.what() << '\n';
+            std::cout << "mailio: " << e.what() << '\n';
         }
     };
     // start lambda function in a new detached thread

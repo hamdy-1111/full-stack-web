@@ -12,7 +12,7 @@ shared_ptr<http_response> login_resource::render_POST(const http_request &req) {
     string password = req_json["password"];
     
     if( action != "login" ) {
-        shared_ptr<http_response>(new string_response(to_string(json({{"error", "unknown-action"}}))));
+        shared_ptr<http_response>(new string_response(to_string(json({{"error", "unknown-action"}})), 200, "application/json"));
     }
 
     json res;
@@ -27,7 +27,7 @@ shared_ptr<http_response> login_resource::render_POST(const http_request &req) {
         res["error"] = "password-user-no-match";
         res["logged_in"] = false;
     }
-    return shared_ptr<http_response>(new string_response(to_string(res)));
+    return shared_ptr<http_response>(new string_response(to_string(res), 200, "application/json"));
 }
 
 bool login_resource::username_password_match(const string &username, const string &password) {

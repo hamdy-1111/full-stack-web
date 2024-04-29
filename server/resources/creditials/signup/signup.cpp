@@ -88,7 +88,6 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string salt = random_string(16);
     string password_hashed = sha256_string(salt + password);
 
-
     // otp
     string otp_code = generate_otp_code();
     sendOTPEmail(email, otp_code);

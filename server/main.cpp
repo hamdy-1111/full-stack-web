@@ -9,7 +9,7 @@
 #include "creditials/login/login.hpp"
 #include "creditials/signup/signup.hpp"
 #include "creditials/verify/verify.hpp"
-
+#include "userdata/personal/personal_info.hpp"
 #include "resources/database.hpp"
 using namespace httpserver;
 
@@ -31,13 +31,15 @@ int main(int argc, char const *argv[])
     login_resource login_rc;
     signup_resource signup_rc;
     verify_resource verify_rc;
-
+    personal_info_resource personal_info_rc;
+    
     DataBaseManager::InitDatabases(); // Connect to databases
     
     ws.register_resource("/", &root_rc, true);
     ws.register_resource("/sign-in", &login_rc);
     ws.register_resource("/sign-up", &signup_rc);
     ws.register_resource("/verify-otp", &verify_rc);
+    ws.register_resource("/get-personal-info", &personal_info_rc);
 
     std::cout << "Connect to http://localhost:3001" << std::endl; 
     ws.start(true);

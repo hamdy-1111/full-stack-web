@@ -29,6 +29,7 @@ server/resources/database.cpp
 server/resources/creditials/login/login.cpp
 server/resources/creditials/signup/signup.cpp
 server/resources/creditials/verify/verify.cpp
+server/resources/userdata/personal/personal_info.cpp
 server/util/email.cpp
 server/main.cpp)
 
