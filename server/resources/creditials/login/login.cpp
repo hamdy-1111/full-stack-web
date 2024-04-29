@@ -1,20 +1,31 @@
 #include "login.hpp"
 #include "database.hpp"
 #include "util/security.hpp"
+#include <nlohmann/json.hpp>
 #include <stdio.h>
+
+using namespace nlohmann;
 shared_ptr<http_response> login_resource::render_POST(const http_request &req) {
-    string username = req.get_arg("username");
-    string password = req.get_arg("password");
-    string res;
+    json req_json = json::parse(string(req.get_content()));
+    string username = req_json["username"];
+    string password = req_json["password"];
+
+    json res;
     if (username_password_match(username, password)) {
-        res = "USER NAME AND PASSWORD CORRECT";
+        string uuid, key;
+        get_uuid_and_key(username, uuid, key);
+        res["error"] = "no-error";
+        res["logged_in"] = true;
+        res["uuid"] = uuid;
+        res["key"] = key;
     } else {
-        res = "USERNAME OR PASSWORD WRONG";
+        res["error"] = "password-user-no-match";
+        res["logged_in"] = false;
     }
-    return shared_ptr<http_response>(new string_response(res));
+    return shared_ptr<http_response>(new string_response(to_string(res)));
 }
 
-bool login_resource::username_password_match(string username, string password) {
+bool login_resource::username_password_match(const string &username, const string &password) {
     try {
         SQLite::Statement query(*DataBaseManager::users, "SELECT username, salt, password FROM users WHERE username = ?");
 
@@ -35,4 +46,18 @@ bool login_resource::username_password_match(string username, string password) {
         std::cout << e.what() << std::endl;
     }
     return false;
+}
+
+void login_resource::get_uuid_and_key(const string &username, string &uuid, string &key) {
+    try {
+        SQLite::Statement query_get(*DataBaseManager::users, "SELECT uuid , key FROM users WHERE username = ?");
+        query_get.bind(1, username);
+        while( query_get.executeStep() ) {
+            uuid = string(query_get.getColumn(0));
+            key  = string(query_get.getColumn(1));
+            return;
+        }
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << '\n';
+    }
 }
