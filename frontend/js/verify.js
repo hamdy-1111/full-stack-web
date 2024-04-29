@@ -1,36 +1,3 @@
-// Function to show error message with SweetAlert
-// type is either error , info or success
-function showDialog(type, message, title) {
-    Swal.fire({
-        icon: type,
-        title: title,
-        text: message,
-        customClass: {
-            popup: 'swal2-popup-dark',
-            title: 'swal2-title-dark',
-            content: 'swal2-content-dark',
-            confirmButton: 'swal2-confirm-dark soundButton', // Add the class here
-        },
-        background: 'rgba(0, 0, 0, 0.53)', // Update background color to match your website
-        backdrop: 'rgba(0, 0, 0, 0.5)', // Update backdrop color to match your website
-        cancelButtonColor: '#6c757d', // Update cancel button color to match your website
-        confirmButtonColor: '#dc3545', // Update confirm button color
-        didOpen: () => {
-            // Add data-sound attribute after the Swal modal is opened
-            const confirmBtn = document.querySelector('.swal2-confirm');
-            confirmBtn.setAttribute('data-sound', 'clickSoundGroup1');
-
-            // Set up event listener for the confirm button
-            confirmBtn.addEventListener('click', function (event) {
-                const soundId = this.getAttribute('data-sound');
-                if (soundId) {
-                    playSound(soundId);
-                }
-            });
-        }
-    });
-}
-
 const inputs = document.querySelectorAll(".input-area");
 
 inputs.forEach((input, index) => {
@@ -135,26 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const timerInterval = setInterval(updateCountdown, 1000); // Update every second
 });
 
-/* start header list */
-document.addEventListener('DOMContentLoaded', function () {
-    var toggleButton = document.getElementById('toggle-menu');
-    var myList = document.getElementById('myList');
 
-    // Toggle the "active" class to control visibility when the button is clicked
-    toggleButton.addEventListener('click', function () {
-        myList.classList.toggle('active');
-    });
-
-    // Close the list when clicking anywhere outside of it
-    document.addEventListener('click', function (event) {
-        var isClickInside = myList.contains(event.target) || toggleButton.contains(event.target);
-
-        if (!isClickInside) {
-            myList.classList.remove('active');
-        }
-    });
-});
-/* end header list */
 
 
 
@@ -224,7 +172,7 @@ async function verifyOTP(otp) {
     } catch (error) {
         console.error("Error:", error);
         // Display error message to the user
-        showDialog('error', error, 'verification error');
+        showSwal('error', error, 'verification error');
     }
 }
 
@@ -282,10 +230,10 @@ function resendOTPCode() {
             }
         }
         if (data?.done == "code-resent") {
-            showDialog('success', "Code resent Successfully", 'resend code');
+            showSwal('success', "Code resent Successfully", 'resend code');
         }
 
     }).catch(error => {
-        showDialog('error', error);
+        showSwal('error', error);
     })
 }

@@ -35,24 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            document.addEventListener('DOMContentLoaded', function () {
-            var toggleButton = document.getElementById('toggle-menu');
-            var myList = document.getElementById('myList');
 
-            // Toggle the "active" class to control visibility when the button is clicked
-            toggleButton.addEventListener('click', function () {
-                myList.classList.toggle('active');
-            });
 
-            // Close the list when clicking anywhere outside of it
-            document.addEventListener('click', function (event) {
-                var isClickInside = myList.contains(event.target) || toggleButton.contains(event.target);
-
-                if (!isClickInside) {
-                    myList.classList.remove('active');
-                }
-            });
-        });
 
 
 // Get the modal element
