@@ -179,8 +179,34 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     // Get form data
     const formData = new FormData(this);
 
-        // Get the selected photo file
-    const userPhoto = document.getElementById('photo').files[0];
+// Get the selected photo file input element
+const photoInput = document.getElementById('photo');
+
+// Check if a file is selected
+if (photoInput.files.length > 0) {
+    // Get the selected photo file
+    const photoFile = photoInput.files[0];
+
+    // Create a new FileReader object
+    const reader = new FileReader();
+
+    // Set up a function to be called when the file is loaded
+    reader.onload = function(event) {
+        // Get the data URL of the loaded image
+        const imageUrl = event.target.result;
+
+        // Now you can use the imageUrl variable to do whatever you need with the image data
+        console.log('Image loaded:', imageUrl);
+    };
+
+    // Read the selected file as a Data URL
+    reader.readAsDataURL(photoFile);
+} else {
+    console.log('No file selected.');
+}
+
+
+
     // Check if the checkbox is checked
     if (!document.getElementById("invalidCheck3").checked) {
         // Show the error message
@@ -200,11 +226,10 @@ document.getElementById("signup-form").addEventListener("submit", function (even
         return; // Stop further execution
     }
 
-    let photoFile;
-        if (userPhoto !=''){
-        photoFile = userPhoto
+        if (imageUrl !=''){
+        userPhoto = imageUrl
         }else{
-        photoFile = '0'
+        userPhoto = '0'
     }
 
     // Construct the body of the HTTP request
@@ -212,7 +237,7 @@ document.getElementById("signup-form").addEventListener("submit", function (even
         email: formData.get('email'),
         username: formData.get('username'),
         password: formData.get('password'),
-        photo: photoFile
+        photo: userPhoto,
     };
 
 // Make an HTTP POST request to the backend
