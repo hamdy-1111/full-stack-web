@@ -37,8 +37,7 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string email = req_json["email"];
     string password = req_json["password"];
     
-    std::cout << "content: " << req_content << std::endl;
-
+    std::cout << "a sign up request received\n";
     // check if username is too long
     if (username.size() > MAXIMUM_USERNAME_LENGTH) {
         string_response *res = new string_response(to_string(json({{"error", "username-too-long"}, {"max", MAXIMUM_USERNAME_LENGTH}})));

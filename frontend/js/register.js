@@ -1,5 +1,5 @@
 // Function to show error message with SweetAlert
-function showDialog(type ,message, title) {
+function showDialog(type, message, title) {
     Swal.fire({
         icon: type,
         title: title,
@@ -120,24 +120,24 @@ document.addEventListener('DOMContentLoaded', function () {
 /* #### end sounds ###### */
 
 /* start header list */
-        document.addEventListener('DOMContentLoaded', function () {
-            var toggleButton = document.getElementById('toggle-menu');
-            var myList = document.getElementById('myList');
+document.addEventListener('DOMContentLoaded', function () {
+    var toggleButton = document.getElementById('toggle-menu');
+    var myList = document.getElementById('myList');
 
-            // Toggle the "active" class to control visibility when the button is clicked
-            toggleButton.addEventListener('click', function () {
-                myList.classList.toggle('active');
-            });
+    // Toggle the "active" class to control visibility when the button is clicked
+    toggleButton.addEventListener('click', function () {
+        myList.classList.toggle('active');
+    });
 
-            // Close the list when clicking anywhere outside of it
-            document.addEventListener('click', function (event) {
-                var isClickInside = myList.contains(event.target) || toggleButton.contains(event.target);
+    // Close the list when clicking anywhere outside of it
+    document.addEventListener('click', function (event) {
+        var isClickInside = myList.contains(event.target) || toggleButton.contains(event.target);
 
-                if (!isClickInside) {
-                    myList.classList.remove('active');
-                }
-            });
-        });
+        if (!isClickInside) {
+            myList.classList.remove('active');
+        }
+    });
+});
 /* end header list */
 
 
@@ -179,38 +179,16 @@ document.getElementById("signup-form").addEventListener("submit", function (even
     // Get form data
     const formData = new FormData(this);
 
-// Get the selected photo file input element
-const photoInput = document.getElementById('photo');
+    // Get the selected photo file input element
+    const photoInput = document.getElementById('photo');
 
-// Check if a file is selected
-if (photoInput.files.length > 0) {
-    // Get the selected photo file
-    const photoFile = photoInput.files[0];
-
-    // Create a new FileReader object
-    const reader = new FileReader();
-
-    // Set up a function to be called when the file is loaded
-    reader.onload = function(event) {
-        // Get the data URL of the loaded image
-        const imageUrl = event.target.result;
-
-        // Now you can use the imageUrl variable to do whatever you need with the image data
-        console.log('Image loaded:', imageUrl);
-    };
-
-    // Read the selected file as a Data URL
-    reader.readAsDataURL(photoFile);
-} else {
-    console.log('No file selected.');
-}
 
 
 
     // Check if the checkbox is checked
     if (!document.getElementById("invalidCheck3").checked) {
         // Show the error message
-        showDialog("error" ,"You must agree to the terms and conditions.", "Agreement Required");
+        showDialog("error", "You must agree to the terms and conditions.", "Agreement Required");
         // Focus on the checkbox for user attention
         document.getElementById("invalidCheck3").focus();
         return; // Stop further execution
@@ -220,69 +198,94 @@ if (photoInput.files.length > 0) {
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm_password");
     if (password !== confirmPassword) {
-        showDialog("error" ,"Passwords do not match.", "Password Mismatch");
+        showDialog("error", "Passwords do not match.", "Password Mismatch");
         // Focus on the password field for user attention
         document.getElementById("signupConfirmPassword").focus();
         return; // Stop further execution
     }
 
-        if (imageUrl !=''){
-        userPhoto = imageUrl
-        }else{
-        userPhoto = '0'
+
+    // Check if a file is selected
+    if (photoInput.files.length > 0) {
+        // Get the selected photo file
+        const photoFile = photoInput.files[0];
+
+        // Create a new FileReader object
+        const reader = new FileReader();
+
+        // Set up a function to be called when the file is loaded
+        reader.onload = function (event) {
+            // Get the data URL of the loaded image
+            const userPhoto = event.target.result;
+
+            // Now you can use the imageUrl variable to do whatever you need with the image data
+            console.log('Image loaded:', userPhoto);
+            sendSignUpRequest(userPhoto);
+        };
+
+        // Read the selected file as a Data URL
+        reader.readAsDataURL(photoFile);
+    } else {
+        console.log('No file selected.');
+        sendSignUpRequest('0');
     }
 
-    // Construct the body of the HTTP request
-    const body = {
-        email: formData.get('email'),
-        username: formData.get('username'),
-        password: formData.get('password'),
-        photo: userPhoto,
-    };
 
-// Make an HTTP POST request to the backend
-fetch('/sign-up', {
-    method: 'POST',
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(body),
-})
-.then(response => {
-    if (response.ok) {
-        // Parse the response JSON data
-        return response.json();
-    } else {
-        // Handle error response
-        throw 'Failed to sign up';
+    /**
+     * @param {string} userPhoto 
+     */
+    function sendSignUpRequest(userPhoto) {
+        // Construct the body of the HTTP request
+        const body = {
+            email: formData.get('email'),
+            username: formData.get('username'),
+            password: formData.get('password'),
+            photo: userPhoto,
+        };
+        // Make an HTTP POST request to the backend
+        fetch('/sign-up', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body),
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Parse the response JSON data
+                    return response.json();
+                } else {
+                    // Handle error response
+                    throw 'Failed to sign up';
+                }
+            })
+            .then(data => {
+                if (data?.error && data?.error != "no-error") {
+                    let error = data.error;
+                    switch (error) {
+                        case "user-exists":
+                            throw "Username already taken try a diffrent one";
+                        case "email-exists":
+                            throw "Email is already taken try a diffrent one";
+                        case "username-too-long":
+                            throw `username is too long. maximum username length is ${data.max} characters`;
+                        case "invalid-parameters":
+                            throw "Bad request sent from client";
+                    }
+                }
+                // Check if the response contains the required data
+                if (data && data.uuid && data.key) {
+                    // Set cookies for uuid and key
+                    document.cookie = `uuid=${data.uuid}; path=/`;
+                    document.cookie = `key=${data.key}; path=/`;
+                    // Redirect user to verification page
+                    window.location.href = 'verify.html';
+                } else {
+                    throw 'UUID and key not received';
+                }
+            })
+            .catch(error => {
+                showDialog('error', error, 'Signup Error');
+            });
     }
-})
-.then(data => {
-    if(data?.error && data?.error != "no-error") {
-        let error = data.error;
-        switch( error ) {
-            case "user-exists":
-                throw "Username already taken try a diffrent one";
-            case "email-exists":
-                throw "Email is already taken try a diffrent one";
-            case "username-too-long":
-                throw `username is too long. maximum username length is ${data.max} characters`;
-            case "invalid-parameters":
-                throw "Bad request sent from client";
-        }
-    }
-    // Check if the response contains the required data
-    if (data && data.uuid && data.key) {
-        // Set cookies for uuid and key
-        document.cookie = `uuid=${data.uuid}; path=/`;
-        document.cookie = `key=${data.key}; path=/`;
-        // Redirect user to verification page
-        window.location.href = 'verify.html';
-    } else {
-        throw 'UUID and key not received';
-    }
-})
-.catch(error => {
-    showDialog('error' ,error, 'Signup Error');
-});
 });
