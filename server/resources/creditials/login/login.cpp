@@ -7,8 +7,13 @@
 using namespace nlohmann;
 shared_ptr<http_response> login_resource::render_POST(const http_request &req) {
     json req_json = json::parse(string(req.get_content()));
+    string action   = req_json["action"];
     string username = req_json["username"];
     string password = req_json["password"];
+    
+    if( action != "login" ) {
+        shared_ptr<http_response>(new string_response(to_string(json({{"error", "unknown-action"}}))));
+    }
 
     json res;
     if (username_password_match(username, password)) {

@@ -27,17 +27,18 @@ shared_ptr<http_response> signup_resource::render_POST(const http_request &req) 
     string req_content = string(req.get_content());
     json req_json = json::parse(req_content);
 
-    string username = req_json["username"];
-    string email = req_json["email"];
-    string password = req_json["password"];
-    std::cout << "content: " << req_content << std::endl;
-
     // if empty return
-    if (username.empty() || email.empty() || password.empty()) {
+    if ( !req_json.contains("username") || !req_json.contains("email") || !req_json.contains("password") || !req_json.contains("photo")) {
         string_response *res = new string_response(to_string(json({{"error", "invalid-parameters"}})));
         res->with_header("Content-Type", "application/json");
         return shared_ptr<http_response>(res);
     }
+    string username = req_json["username"];
+    string email = req_json["email"];
+    string password = req_json["password"];
+    
+    std::cout << "content: " << req_content << std::endl;
+
     // check if username is too long
     if (username.size() > MAXIMUM_USERNAME_LENGTH) {
         string_response *res = new string_response(to_string(json({{"error", "username-too-long"}, {"max", MAXIMUM_USERNAME_LENGTH}})));
