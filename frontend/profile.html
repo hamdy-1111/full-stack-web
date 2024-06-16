@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d36d507b4c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.9/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css-fa/all.min.css">
     <link rel="stylesheet" href="css/profile.css">
@@ -36,20 +37,16 @@
 <div class="wrapper">
     <div class="container" style="grid-column: span 2;">
         <div class="user-info">
-        <button id="edit"><i class="fa-solid fa-user-pen"></i></button>
+            <button id="edit"><i class="fa-solid fa-user-pen"></i></button>
             <div class="user-img">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"/>
+                <img id="displayed-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"/>
             </div>
-            <h4 id="name">@user</h4>
-            <p id="mail">example@gmail.com</p>
-            <p id="description">
-                i'm new here
-            </p>
-            <p id="gender">Gender female</p>
-            <p id="birthday" style="margin-bottom: 10px;">Birthday 26-12-2007</p>
-            <button type="button" class="startBtn">
-                Get started
-            </button>
+            <h4 id="displayed-name">@user</h4>
+            <p id="displayed-mail">example@gmail.com</p>
+            <p id="displayed-description">i'm new here</p>
+            <p id="displayed-gender">Gender female</p>
+            <p id="displayed-birthday" style="margin-bottom: 10px;">Birthday 26-12-2007</p>
+            <button type="button" class="startBtn">Get started</button>
         </div>
     </div>
 <div id="editModal" class="modal">
@@ -57,27 +54,26 @@
         <i class="fa-regular fa-circle-xmark close"></i>
         <!-- Your content here -->
         <h2>Edit User Information</h2>
-<form id="user-form">
-    <label for="input-image" style="margin-bottom: 15px;">
-        <div id="image-preview-container">
-            <img id="uploaded-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp" alt="Uploaded Image">
-        </div>
-    </label>
-    <input id="input-image" type="file" accept="image/*" style="display: none;">
-    <input type="text" placeholder="Name" id="user-name">
-    <input type="email" placeholder="Change Email" id="user-email">
-    <input type="tel" placeholder="Add Phone" id="user-phone">
-    <textarea name="description" id="user-description" placeholder="Description" cols="30" rows="5" maxlength="250" style="resize: none;"></textarea>
-    <select name="gender" id="user-gender">
-        <option value="">Select Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="anonymous">anonymous &#x1F60E;</option>
-    </select>
-    <input type="month" name="month" placeholder="Month" id="user-month">
-    <input type="submit" value="save">
-</form>
-
+        <form id="user-form">
+            <label for="input-image" style="margin-bottom: 15px;">
+                <div id="image-preview-container">
+                    <img id="uploaded-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp" alt="Uploaded Image">
+                </div>
+            </label>
+            <input id="input-image" type="file" accept="image/*" style="display: none;">
+            <input type="text" placeholder="Name" id="user-name">
+            <input type="email" placeholder="Change Email" id="user-email">
+            <textarea name="description" id="user-description" placeholder="Description" cols="30" rows="5" maxlength="250" style="resize: none;"></textarea>
+            <select name="gender" id="user-gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="anonymous">anonymous &#x1F60E;</option>
+            </select>
+            <input type="date" name="birthday" placeholder="Month" id="user-birth">
+            <input type="submit" value="save">
+        </form>
+        
     </div>
 </div>
     
@@ -89,39 +85,6 @@
 
     </div>
 
-
-
-
-
-    <div class="container">
-
-    </div>
-
-
-
-
-    <div class="container">
-
-    </div>
-
-
-
-
-    <div class="container">
-
-    </div>
-
-
-
-    <div class="container">
-
-    </div>
-
-
-
-    <div class="container">
-
-    </div>
 </div>
 
 

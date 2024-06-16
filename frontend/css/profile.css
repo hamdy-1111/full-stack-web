@@ -256,7 +256,7 @@ header nav .form i {
 }
 /* END COMPONENTS */
 body{
-    background: #000;
+    background-color: #181828;
     display: flex;
     justify-content: center;
     align-items: self-start;
@@ -374,19 +374,19 @@ body{
     color: var(--text-color);
 }
 
-#name {
+#displayed-name {
     font-size: 1.8em;
     margin-bottom: 10px;
     color: var(--text-color);
 }
 
-#mail {
+#displayed-mail {
     font-size: 1.2em;
     margin-bottom: 20px;
     color: #666;
 }
 
-#description{
+#displayed-description{
     margin-bottom: 8px;
 }
 
@@ -411,7 +411,7 @@ body{
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     left: 0;
     top: 0;
     width: 100%;
@@ -420,17 +420,26 @@ body{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal  h2{
+    text-align: center;
+    background: linear-gradient(to right, #2196f3, #e91e63);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
 .modal-content {
     background-color: #333;
     padding: 20px;
     border: 1px solid #555;
     border-radius: 10px;
     max-width: 500px;
-    position: fixed;
+    position: absolute;
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
-    top: 110px;
+    top: 3rem;
 }
 
 .close {
@@ -451,7 +460,6 @@ body{
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #555;
     border-radius: 5px;
     background-color: #444;
 }
@@ -480,7 +488,7 @@ input[type="tel"],
 textarea,
 select,
 input[type="number"],
-input[type="month"] {
+input[type="date"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

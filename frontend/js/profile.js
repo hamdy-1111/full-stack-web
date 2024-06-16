@@ -88,3 +88,42 @@ input.addEventListener('change', function() {
     reader.readAsDataURL(file);
 });
 
+// JavaScript to handle form submission and update displayed information
+
+document.getElementById('user-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting and refreshing the page
+
+    // Get form values
+    const name = document.getElementById('user-name').value.trim();
+    const email = document.getElementById('user-email').value.trim();
+    const description = document.getElementById('user-description').value.trim();
+    const gender = document.getElementById('user-gender').value;
+    const birthday = document.getElementById('user-birth').value;
+
+    // Update displayed information only if fields are not empty
+    if (name !== '') {
+        document.getElementById('displayed-name').textContent = name;
+    }
+    if (email !== '') {
+        document.getElementById('displayed-mail').textContent = email;
+    }
+    if (description !== '') {
+        document.getElementById('displayed-description').textContent = description;
+    }
+    if (gender !== '') {
+        document.getElementById('displayed-gender').textContent = `Gender ${gender}`;
+    }
+    if (birthday !== '') {
+        document.getElementById('displayed-birthday').textContent = `Birthday ${birthday}`;
+    }
+
+    // Optionally, update the displayed image if a new one is uploaded
+    const uploadedImageSrc = document.getElementById('uploaded-image').src;
+    if (uploadedImageSrc !== '') {
+        document.getElementById('displayed-image').src = uploadedImageSrc;
+    }
+
+    // Optionally, clear the form fields after updating
+    this.reset();
+    modal.style.display = "none";
+});
