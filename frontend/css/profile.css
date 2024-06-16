@@ -291,7 +291,7 @@ body{
 }
 
 
-.user-info {
+.user-info ,.user-about{
     padding: 20px;
     width: 450px;
     display: flex;
@@ -304,7 +304,7 @@ body{
 }
 
 @media (max-width: 585px ) {
-    .user-info{
+    .user-info ,.user-about{
         width: 240px;
     }
 }
@@ -374,7 +374,7 @@ body{
     color: var(--text-color);
 }
 
-#displayed-name {
+#displayed-name ,.user-about h4 {
     font-size: 1.8em;
     margin-bottom: 10px;
     color: var(--text-color);
@@ -515,4 +515,40 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: var(--transparent-color);
+}
+
+
+
+
+.statics {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.followersNB, .postsNB {
+    font-size: 16px;
+    color: var(--text-color);
+    text-align: center;
+}
+.btns {
+    display: flex;
+    justify-content: center;
+}
+.btns button {
+    background-color: transparent;
+    border: 1px solid #444;
+    border-radius: 20px;
+    color: #444;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+.btns button i {
+    margin-right: 8px;
+}
+.btns button:hover {
+    background-color: #333;
+    color: #fff;
 }
